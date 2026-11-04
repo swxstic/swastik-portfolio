@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swastik Verma</title>
+<meta name="description" content="Swastik Verma, first-year B.Tech student in Computer Science and AI at Rishihood University with Newton School of Technology. Python, Git and GitHub, the terminal, and problem solving.">
+<meta name="theme-color" content="#F1F2EE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232340E0'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='800' font-size='28' text-anchor='middle' fill='%23F1F2EE'%3ESV%3C/text%3E%3Ccircle cx='50' cy='14' r='5' fill='%23F5A300'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<script>
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('motion');
+    // Safety net: if the main script never finishes, show everything.
+    setTimeout(function () { if (!window.__svReady) { d.classList.remove('motion'); d.classList.add('ready', 'failsafe'); } }, 6000);
+  })();
+</script>
+<style>
+:root {
+  /* Layout: left-aligned on a 12-column grid, 1320px max. The particle name in the hero is the one loud thing; everything else stays quiet and precise. */
+  --paper: #F1F2EE;
+  --paper-deep: #E4E6E0;
+  --ink: #1A1C22;
+  --muted: #5C626D;
+  --rule: #CDD1C9;
+  --cobalt: #2340E0;
+  --saffron: #F5A300;
+  --night: #0C1230;
+  --night-text: #E8EAF2;
+  --night-muted: #9AA3C7;
+  --error: #B3361F;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --ease-in-out: cubic-bezier(.7, 0, .2, 1);
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1320px;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-variation-settings: "wdth" 100;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--cobalt); color: #fff; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, textarea { font: inherit; }
+ul { list-style: none; }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
+main { overflow-x: clip; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- loader ---------- */
+.loader { display: none; }
+.js .loader {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: clamp(20px, 4vw, 48px);
+  background: var(--night); color: var(--night-text);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.1s var(--ease-in-out);
+}
+.loader.done { clip-path: inset(0 0 100% 0); }
+.failsafe .loader { display: none; }
+.loader-top { display: flex; justify-content: space-between; font-size: .875rem; color: var(--night-muted); }
+.loader-name {
+  font-family: var(--display);
+  font-size: clamp(3rem, 12vw, 10rem);
+  line-height: .88;
+  letter-spacing: -.035em;
+  font-variation-settings: "wdth" 125, "wght" 780;
+}
+.loader-name span { display: block; overflow: hidden; padding-bottom: .04em; }
+.loader-name i { display: block; font-style: normal; transform: translateY(105%); animation: rise 1s var(--ease) forwards; }
+.loader-name span:nth-child(2) i { animation-delay: .09s; color: var(--saffron); }
+.loader-bar { height: 2px; background: rgba(255,255,255,.12); margin-top: 28px; overflow: hidden; }
+.loader-bar span { display: block; height: 100%; background: var(--saffron); transform-origin: left; transform: scaleX(0); }
+@keyframes rise { to { transform: none; } }
+
+/* ---------- cursor ---------- */
+.cursor { display: none; }
+.has-cursor .cursor { display: block; position: fixed; inset: 0; pointer-events: none; z-index: 95; }
+.has-cursor, .has-cursor a, .has-cursor button, .has-cursor label, .has-cursor .cert-media { cursor: none; }
+.has-cursor input, .has-cursor textarea { cursor: text; }
+.cursor-dot, .cursor-ring { position: fixed; left: 0; top: 0; border-radius: 50%; will-change: transform; }
+.cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--cobalt); transition: background-color .3s, opacity .3s; }
+.cursor-ring {
+  width: 38px; height: 38px; margin: -19px 0 0 -19px;
+  border: 1px solid rgba(35, 64, 224, .45);
+  display: grid; place-items: center;
+  transition: width .45s var(--ease), height .45s var(--ease), margin .45s var(--ease), background-color .35s, border-color .35s, opacity .3s;
+}
+.cursor-label { font-size: .75rem; font-weight: 600; color: #fff; opacity: 0; transition: opacity .25s; white-space: nowrap; }
+.cursor.is-hover .cursor-ring { width: 58px; height: 58px; margin: -29px 0 0 -29px; background: rgba(35, 64, 224, .08); }
+.cursor.is-label .cursor-ring { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--cobalt); border-color: var(--cobalt); }
+.cursor.is-label .cursor-label { opacity: 1; }
+.cursor.is-label .cursor-dot, .cursor.is-text .cursor-dot { opacity: 0; }
+.cursor.is-text .cursor-ring { opacity: 0; }
+.cursor.on-dark .cursor-dot { background: var(--saffron); }
+.cursor.on-dark .cursor-ring { border-color: rgba(245, 163, 0, .5); }
+.cursor.on-dark.is-label .cursor-ring { background: var(--saffron); border-color: var(--saffron); }
+.cursor.on-dark .cursor-label { color: var(--night); }
+.cursor.is-away .cursor-dot, .cursor.is-away .cursor-ring { opacity: 0; }
+
+/* ---------- progress + nav ---------- */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--cobalt); transform-origin: left; transform: scaleX(0); z-index: 70; }
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  transition: transform .7s var(--ease), background-color .4s, color .4s, border-color .4s;
+  border-bottom: 1px solid transparent;
+}
+.nav.is-hidden { transform: translateY(-105%); }
+.nav.is-scrolled {
+  background: rgba(241, 242, 238, .78);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom-color: rgba(205, 209, 201, .7);
+}
+.nav.on-dark { color: var(--night-text); }
+.nav.on-dark.is-scrolled { background: rgba(12, 18, 48, .7); border-bottom-color: rgba(255, 255, 255, .08); }
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 16px var(--gutter); display: flex; align-items: center; gap: 28px; }
+.mark {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-size: 1.0625rem; letter-spacing: -.01em; text-decoration: none;
+  font-variation-settings: "wdth" 118, "wght" 760;
+}
+.mark-glyph { position: relative; width: 30px; height: 30px; border-radius: 9px; background: var(--ink); color: var(--paper); display: grid; place-items: center; font-size: .8125rem; transition: transform .7s var(--ease), background-color .4s; }
+.mark-glyph::after { content: ""; position: absolute; top: -3px; right: -3px; width: 9px; height: 9px; border-radius: 50%; background: var(--saffron); }
+.mark:hover .mark-glyph { transform: rotate(-12deg) scale(1.06); background: var(--cobalt); }
+.on-dark .mark-glyph { background: var(--night-text); color: var(--night); }
+.links { display: flex; gap: 26px; margin-left: auto; }
+.links a { position: relative; padding: 6px 0; font-size: .9375rem; text-decoration: none; display: inline-block; }
+.links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: currentColor;
+  transform: scaleX(0); transform-origin: right; transition: transform .55s var(--ease);
+}
+.links a:hover::after, .links a.is-active::after { transform: scaleX(1); transform-origin: left; }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.sound {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 38px; padding: 0 14px; border: 1px solid currentColor; border-radius: 999px;
+  font-size: .8125rem; transition: background-color .4s, color .4s;
+}
+.sound:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.on-dark .sound:hover { background: var(--night-text); color: var(--night); }
+.bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+.bars i { width: 2px; height: 100%; background: currentColor; border-radius: 1px; transform-origin: bottom; transform: scaleY(.25); }
+.menu-btn { display: none; height: 38px; padding: 0 16px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: .8125rem; }
+.on-dark .menu-btn { background: var(--night-text); color: var(--night); }
+
+.menu {
+  position: fixed; inset: 0; z-index: 55; background: var(--paper);
+  display: flex; flex-direction: column; justify-content: center; gap: 6px;
+  padding: 96px var(--gutter) 40px;
+  clip-path: circle(0% at calc(100% - 52px) 36px);
+  visibility: hidden;
+  transition: clip-path .8s var(--ease-in-out), visibility 0s .8s;
+}
+.menu.is-open { clip-path: circle(150% at calc(100% - 52px) 36px); visibility: visible; transition: clip-path .9s var(--ease-in-out), visibility 0s 0s; }
+.menu a {
+  font-family: var(--display); font-size: clamp(2.5rem, 13vw, 4.5rem); line-height: 1.04; letter-spacing: -.03em;
+  font-variation-settings: "wdth" 122, "wght" 720; text-decoration: none;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .5s, transform .5s var(--ease);
+}
+.menu.is-open a { opacity: 1; transform: none; transition: opacity .8s var(--ease) calc(var(--i) * 70ms + 250ms), transform .9s var(--ease) calc(var(--i) * 70ms + 250ms); }
+.menu-foot { margin-top: 32px; font-size: .9375rem; color: var(--muted); }
+
+/* ---------- buttons ---------- */
+.btn {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 52px; padding: 0 24px; border-radius: 999px;
+  font-size: .9375rem; font-weight: 550; text-decoration: none; white-space: nowrap;
+  transition: color .5s var(--ease), border-color .5s;
+}
+.btn::before {
+  content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit;
+  transform: translateY(102%); transition: transform .65s var(--ease);
+}
+.btn:hover::before { transform: none; }
+.btn-inner { display: inline-flex; align-items: center; gap: 10px; }
+.btn-solid { background: var(--ink); color: var(--paper); }
+.btn-solid::before { background: var(--cobalt); }
+.btn-line { border: 1px solid var(--ink); color: var(--ink); }
+.btn-line::before { background: var(--ink); }
+.btn-line:hover { color: var(--paper); }
+.btn-small { height: 42px; padding: 0 18px; font-size: .875rem; }
+.btn[disabled] { opacity: .6; pointer-events: none; }
+.text-link {
+  font-weight: 550; text-decoration: none; padding-bottom: 2px;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1.5px no-repeat;
+  transition: background-size .55s var(--ease);
+}
+.text-link:hover { background-size: 0 1.5px; background-position: 100% 100%; }
+
+/* ---------- reveal system (only when motion is allowed) ---------- */
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+.wi { display: inline-block; }
+.motion [data-split] .wi { transform: translateY(112%); }
+.motion [data-split].in .wi { transform: none; transition: transform 1.15s var(--ease); transition-delay: calc(var(--i) * 26ms + var(--d, 0ms)); }
+.motion [data-reveal] { opacity: 0; transform: translateY(34px); }
+.motion [data-reveal].in { opacity: 1; transform: none; transition: opacity 1s var(--ease), transform 1.2s var(--ease); transition-delay: var(--d, 0ms); }
+.motion .hero [data-fade] { opacity: 0; transform: translateY(14px); }
+.motion.ready .hero [data-fade] { opacity: 1; transform: none; transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0ms); }
+
+/* ---------- hero ---------- */
+.hero { position: relative; min-height: min(100svh, 1020px); display: flex; flex-direction: column; overflow: clip; }
+.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-inner {
+  position: relative; z-index: 1; flex: 1;
+  width: 100%; max-width: var(--max); margin: 0 auto; padding: clamp(96px, 13vh, 140px) var(--gutter) 24px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: clamp(22px, 4vh, 44px);
+  pointer-events: none;
+}
+.hero-inner a, .hero-inner button { pointer-events: auto; }
+.hero-top { display: flex; justify-content: space-between; gap: 20px 40px; font-size: .9375rem; line-height: 1.45; color: var(--muted); }
+.hero-top strong { color: var(--ink); font-weight: 550; }
+.hero-top .right { text-align: right; }
+.rotator { display: inline-grid; overflow: hidden; vertical-align: bottom; height: 1.45em; }
+.rotator span { grid-area: 1 / 1; color: var(--ink); font-weight: 550; transform: translateY(105%); opacity: 0; transition: transform .9s var(--ease), opacity .9s var(--ease); }
+.rotator span.is-current { transform: none; opacity: 1; }
+.rotator span.is-out { transform: translateY(-105%); opacity: 0; }
+.hero-name-slot { width: 100%; height: clamp(64px, 15vw, 230px); }
+.hero-bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 28px 40px; }
+.hero-h1 {
+  font-family: var(--display); font-weight: 440;
+  font-size: clamp(1.55rem, 3vw, 2.85rem); line-height: 1.12; letter-spacing: -.018em;
+  font-variation-settings: "wdth" 100; max-width: 23ch; text-wrap: balance;
+}
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.hero-foot { display: flex; justify-content: space-between; gap: 16px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: .8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.scroll-cue { display: inline-flex; align-items: center; gap: 10px; }
+.scroll-cue i { position: relative; width: 1px; height: 18px; background: var(--rule); overflow: hidden; }
+.scroll-cue i::after { content: ""; position: absolute; inset: 0; background: var(--ink); animation: cue 2s var(--ease-in-out) infinite; }
+@keyframes cue { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(100%); } }
+
+/* ---------- marquee ---------- */
+.marquee { overflow: clip; border-block: 1px solid var(--rule); padding-block: clamp(16px, 2.4vw, 26px); white-space: nowrap; user-select: none; }
+.marquee-track { display: inline-flex; will-change: transform; }
+.marquee-group { display: inline-flex; }
+.marquee-item {
+  display: inline-flex; align-items: center; gap: clamp(18px, 2.4vw, 32px); padding-right: clamp(18px, 2.4vw, 32px);
+  font-family: var(--display); font-size: clamp(1.5rem, 3.6vw, 3.1rem); line-height: 1.1; letter-spacing: -.015em;
+  font-variation-settings: "wdth" 112, "wght" 620;
+}
+.marquee-item.outline { color: transparent; -webkit-text-stroke: 1px var(--ink); }
+.marquee-item svg { width: .5em; height: .5em; color: var(--cobalt); flex: none; }
+
+/* ---------- sections ---------- */
+.section { padding-block: clamp(96px, 13vw, 184px); }
+.sec-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px 24px; margin-bottom: clamp(40px, 6vw, 84px); }
+.title {
+  --wdth: 125; --wght: 760;
+  grid-column: 1 / -1;
+  font-family: var(--display); font-size: clamp(2.4rem, 10vw, 8.6rem); line-height: .9; letter-spacing: -.035em;
+  font-variation-settings: "wdth" var(--wdth), "wght" var(--wght);
+  white-space: nowrap;
+}
+.sec-note { grid-column: 8 / -1; color: var(--muted); max-width: 38ch; }
+
+/* about */
+.statement {
+  font-family: var(--display); font-size: clamp(1.45rem, 3.2vw, 2.8rem); line-height: 1.2; letter-spacing: -.015em;
+  font-variation-settings: "wdth" 100, "wght" 470; max-width: 25em;
+}
+.statement .sw { transition: none; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: clamp(56px, 8vw, 104px); border-top: 1px solid var(--rule); }
+.facts > div { padding: 20px 24px 22px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 4px; }
+.facts dt { font-size: .8125rem; color: var(--muted); }
+.facts dd { font-size: 1.0625rem; font-weight: 550; line-height: 1.4; }
+
+/* method */
+.method { overflow: clip; padding-block: clamp(96px, 11vw, 150px) clamp(72px, 8vw, 110px); }
+.method-pin { display: flex; flex-direction: column; }
+.method-pin > .wrap { width: 100%; }
+.method .sec-head { margin-bottom: clamp(32px, 4vw, 56px); }
+.method-track { display: flex; gap: clamp(14px, 1.8vw, 24px); width: max-content; padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); will-change: transform; }
+.step {
+  width: clamp(300px, 33vw, 450px); min-height: min(440px, 56vh);
+  display: flex; flex-direction: column; gap: 14px;
+  padding: clamp(24px, 2.4vw, 34px); border-radius: 28px; background: var(--paper-deep);
+  transition: background-color .6s var(--ease);
+}
+.step-n {
+  font-family: var(--display); font-size: clamp(3.6rem, 6vw, 5.6rem); line-height: .8; letter-spacing: -.04em;
+  font-variation-settings: "wdth" 125, "wght" 800;
+  color: transparent; -webkit-text-stroke: 1.5px var(--ink);
+  transition: color .6s var(--ease), -webkit-text-stroke-color .6s;
+}
+.step.is-on .step-n { color: var(--cobalt); -webkit-text-stroke-color: var(--cobalt); }
+.step h3 { font-family: var(--display); font-size: 1.5rem; line-height: 1.15; letter-spacing: -.01em; font-variation-settings: "wdth" 112, "wght" 660; margin-top: 10px; }
+.step p { color: var(--muted); max-width: 40ch; }
+.step pre {
+  margin-top: auto; padding: 16px 18px; border-radius: 16px;
+  background: var(--night); color: var(--night-text);
+  font-family: var(--mono); font-size: .78rem; line-height: 1.7; overflow-x: auto;
+}
+.step pre .c { color: var(--night-muted); }
+.step pre .k { color: #9DB0FF; }
+.step pre .s { color: #FFC857; }
+.method-progress { max-width: var(--max); margin: clamp(28px, 4vw, 44px) auto 0; padding-inline: var(--gutter); }
+.method-progress div { height: 2px; background: var(--rule); }
+.method-progress span { display: block; height: 100%; background: var(--cobalt); transform-origin: left; transform: scaleX(0); }
+
+/* toolkit */
+.toolkit-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(36px, 5vw, 80px); align-items: start; }
+.skill { padding: 26px 0 28px; border-top: 1px solid var(--rule); display: grid; gap: 10px; }
+.skill:last-child { border-bottom: 1px solid var(--rule); }
+.skill-top { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 16px; flex-wrap: wrap; }
+.skill h3 {
+  font-family: var(--display); font-size: clamp(1.6rem, 2.6vw, 2.3rem); line-height: 1.05; letter-spacing: -.02em;
+  font-variation-settings: "wdth" 112, "wght" 680;
+  transition: font-variation-settings .7s var(--ease), color .45s;
+}
+.skill:hover h3 { font-variation-settings: "wdth" 125, "wght" 780; color: var(--cobalt); }
+.skill-level { font-size: .875rem; color: var(--muted); }
+.skill p { color: var(--muted); max-width: 52ch; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.tags li { padding: 4px 11px; border-radius: 999px; background: var(--paper-deep); font-size: .8125rem; }
+
+.term {
+  position: sticky; top: 92px;
+  background: var(--night); color: var(--night-text);
+  border-radius: 24px; overflow: hidden;
+  box-shadow: 0 40px 80px -40px rgba(12, 18, 48, .55);
+  transition: box-shadow .4s;
+}
+.term:focus-within { box-shadow: 0 0 0 2px var(--saffron), 0 40px 80px -40px rgba(12, 18, 48, .55); }
+.term-bar { display: flex; align-items: center; gap: 14px; padding: 13px 18px; border-bottom: 1px solid rgba(255, 255, 255, .08); font-family: var(--mono); font-size: .75rem; color: var(--night-muted); }
+.term-dots { display: inline-flex; gap: 6px; }
+.term-dots i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .16); }
+.term-dots i:first-child { background: var(--saffron); }
+.term-body { height: clamp(340px, 50vh, 460px); overflow-y: auto; padding: 18px 18px 10px; font-family: var(--mono); font-size: .8125rem; line-height: 1.65; cursor: text; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent; }
+.term-out .ln { white-space: pre-wrap; word-break: break-word; min-height: 1.65em; }
+.term-out a { color: #9DB0FF; }
+.t-prompt { color: var(--saffron); }
+.t-cmd { color: #fff; }
+.t-dim { color: var(--night-muted); }
+.t-acc { color: #9DB0FF; }
+.t-ok { color: #8FD9B6; }
+.t-err { color: #FF9F8C; }
+.term-line { display: flex; align-items: center; gap: 8px; }
+.term-line label { color: var(--saffron); white-space: nowrap; }
+.term-line input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: #fff; font-family: var(--mono); font-size: .8125rem; caret-color: var(--saffron); }
+.term-hints { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 12px 18px 14px; border-top: 1px solid rgba(255, 255, 255, .08); font-family: var(--mono); font-size: .75rem; color: var(--night-muted); }
+.term-hints button { padding: 5px 11px; border-radius: 999px; background: rgba(255, 255, 255, .08); color: var(--night-text); font-family: var(--mono); font-size: .75rem; transition: background-color .3s, color .3s; }
+.term-hints button:hover { background: var(--saffron); color: var(--night); }
+
+/* certificates */
+.cert-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 56px); perspective: 1600px; }
+.cert { display: grid; gap: 26px; align-content: start; transform-style: preserve-3d; }
+.cert-media {
+  position: relative; display: block; width: 100%; border-radius: 18px; overflow: hidden; background: #fff;
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--sc, 1));
+  transition: transform .8s var(--ease), box-shadow .6s var(--ease);
+  box-shadow: 0 30px 60px -36px rgba(12, 18, 48, .55), 0 0 0 1px rgba(26, 28, 34, .07);
+}
+.cert-media.is-tilting { transition: transform .15s linear, box-shadow .6s var(--ease); --sc: 1.015; box-shadow: 0 50px 80px -40px rgba(12, 18, 48, .6), 0 0 0 1px rgba(26, 28, 34, .07); }
+.cert-media img { width: 100%; height: auto; aspect-ratio: 1609 / 1234; }
+.glare { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, .6), rgba(255, 255, 255, 0) 42%); mix-blend-mode: soft-light; opacity: 0; transition: opacity .5s; }
+.cert-media.is-tilting .glare { opacity: 1; }
+.cert-series { font-size: .875rem; color: var(--muted); }
+.cert-info h3 { margin-top: 4px; font-family: var(--display); font-size: clamp(1.35rem, 2vw, 1.8rem); line-height: 1.15; letter-spacing: -.015em; font-variation-settings: "wdth" 108, "wght" 650; text-wrap: balance; }
+.cert-info dl { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 4px 28px; margin-top: 16px; }
+.cert-info dt { font-size: .75rem; color: var(--muted); }
+.cert-info dd { font-size: .9375rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.cert-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 20px; }
+
+/* lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 85; display: grid; place-items: center; padding: clamp(64px, 8vh, 96px) clamp(16px, 4vw, 56px) clamp(24px, 4vh, 48px); }
+.lightbox[hidden] { display: none; }
+.lb-backdrop { position: absolute; inset: 0; background: rgba(12, 18, 48, .86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: 0; transition: opacity .5s var(--ease); }
+.lightbox.is-open .lb-backdrop { opacity: 1; }
+.lb-figure { position: relative; z-index: 1; display: grid; gap: 16px; justify-items: center; max-width: 100%; }
+.lb-frame { position: relative; overflow: hidden; border-radius: 14px; transform-origin: 0 0; box-shadow: 0 40px 120px -30px rgba(0, 0, 0, .6); background: #fff; }
+.lb-img { display: block; width: auto; height: auto; max-width: min(1200px, calc(100vw - 2 * clamp(16px, 4vw, 56px))); max-height: calc(100svh - 220px); transition: transform .6s var(--ease); transform-origin: var(--ox, 50%) var(--oy, 50%); }
+.lb-img.is-zoomed { transform: scale(2.1); }
+.lb-cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 24px; width: 100%; color: var(--night-text); opacity: 0; transform: translateY(8px); transition: opacity .5s var(--ease), transform .6s var(--ease); }
+.lightbox.is-open .lb-cap { opacity: 1; transform: none; transition-delay: .25s; }
+.lb-cap strong { font-weight: 600; color: var(--night-text); }
+.lb-cap .lb-meta { color: var(--night-muted); font-size: .9375rem; }
+.lb-cap a { color: var(--night-text); }
+.lb-controls { position: absolute; z-index: 2; top: 16px; right: clamp(16px, 4vw, 56px); display: flex; gap: 8px; }
+.lb-btn { height: 42px; padding: 0 16px; border-radius: 999px; background: rgba(255, 255, 255, .1); color: #fff; font-size: .875rem; transition: background-color .3s, color .3s; }
+.lb-btn:hover { background: var(--saffron); color: var(--night); }
+
+/* contact */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(44px, 7vw, 110px); align-items: start; }
+.contact .title { font-size: clamp(2.4rem, 7vw, 6.4rem); }
+.has-cursor .term-body { cursor: none; }
+.contact-lede { margin-top: 30px; font-size: clamp(1.15rem, 1.5vw, 1.35rem); line-height: 1.5; max-width: 34ch; }
+.direct { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--rule); display: grid; gap: 10px; }
+.direct-label { font-size: .875rem; color: var(--muted); }
+.direct-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.direct-row a { font-family: var(--display); font-size: clamp(1.1rem, 1.7vw, 1.45rem); font-variation-settings: "wdth" 108, "wght" 620; text-decoration: none; word-break: break-all; }
+.copy-btn { height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--rule); font-size: .8125rem; transition: background-color .3s, border-color .3s, color .3s; }
+.copy-btn:hover { border-color: var(--ink); }
+.copy-btn.is-done { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.form { display: grid; gap: 28px; }
+.field { position: relative; }
+.field input, .field textarea {
+  display: block; width: 100%;
+  padding: 26px 0 10px; border: 0; border-radius: 0;
+  background:
+    linear-gradient(var(--cobalt), var(--cobalt)) 0 100% / 0 2px no-repeat,
+    linear-gradient(var(--rule), var(--rule)) 0 100% / 100% 1.5px no-repeat;
+  color: var(--ink); font-size: 1.125rem; outline: 0;
+  transition: background-size .7s var(--ease);
+}
+.field input:focus, .field textarea:focus { background-size: 100% 2px, 100% 1.5px; }
+.field.is-invalid input, .field.is-invalid textarea {
+  background-image: linear-gradient(var(--error), var(--error)), linear-gradient(var(--rule), var(--rule));
+  background-size: 100% 2px, 100% 1.5px;
+}
+.field textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+.field label { position: absolute; left: 0; top: 26px; color: var(--muted); pointer-events: none; transform-origin: 0 0; transition: transform .45s var(--ease), color .3s; }
+.field input:focus + label, .field input:not(:placeholder-shown) + label,
+.field textarea:focus + label, .field textarea:not(:placeholder-shown) + label { transform: translateY(-24px) scale(.8); color: var(--ink); }
+.err { display: block; min-height: 1.3em; margin-top: 6px; font-size: .8125rem; color: var(--error); }
+.topics { border: 0; }
+.topics legend { margin-bottom: 12px; font-size: .9375rem; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.chip span { display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border: 1px solid var(--rule); border-radius: 999px; font-size: .9375rem; transition: background-color .35s, color .35s, border-color .35s, transform .35s var(--ease); }
+.chip:hover span { border-color: var(--ink); }
+.chip input:checked + span { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip input:focus-visible + span { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+.form-note { font-size: .8125rem; color: var(--muted); max-width: 36ch; }
+.form-status:empty { display: none; }
+.form-status { padding: 20px 22px; border-radius: 18px; background: var(--paper-deep); display: grid; gap: 12px; }
+.form-status.is-ok { background: rgba(35, 64, 224, .08); }
+.form-status p { max-width: 52ch; }
+.status-head { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+.status-head svg { width: 26px; height: 26px; flex: none; }
+.status-head svg path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: draw .8s var(--ease) .1s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.status-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* outro */
+.outro { position: relative; background: var(--night); color: var(--night-text); overflow: clip; }
+.outro-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 48px 64px; padding-block: clamp(120px, 15vw, 210px) clamp(80px, 10vw, 140px); }
+.outro-kicker { color: var(--night-muted); font-size: 1.0625rem; }
+.outro-title {
+  margin-top: 18px;
+  font-family: var(--display); font-size: clamp(2.6rem, 7.4vw, 7.2rem); line-height: .92; letter-spacing: -.035em;
+  font-variation-settings: "wdth" 125, "wght" 760; text-wrap: balance;
+}
+.track { margin-top: 36px; display: grid; gap: 6px; max-width: 44ch; }
+.track-name { font-family: var(--display); font-size: 1.375rem; font-variation-settings: "wdth" 115, "wght" 650; display: flex; align-items: baseline; gap: 14px; }
+.track-time { font-family: var(--mono); font-size: .8125rem; color: var(--saffron); font-variant-numeric: tabular-nums; }
+.track-sub { color: var(--night-muted); }
+.player { position: relative; width: clamp(260px, 32vw, 430px); aspect-ratio: 1; }
+.viz { position: absolute; inset: 0; width: 100%; height: 100%; }
+.play {
+  position: absolute; inset: 0; margin: auto; width: 36%; height: 36%; border-radius: 50%;
+  background: var(--saffron); color: var(--night);
+  display: grid; place-items: center;
+  transition: transform .7s var(--ease), background-color .4s;
+}
+.play:hover { transform: scale(1.07); }
+.play svg { width: 30%; height: 30%; }
+.play .i-pause { display: none; }
+.play[aria-pressed="true"] .i-pause { display: block; }
+.play[aria-pressed="true"] .i-play { display: none; }
+.play:focus-visible { outline-color: var(--night-text); outline-offset: 6px; border-radius: 50%; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; padding-block: 26px 30px; border-top: 1px solid rgba(255, 255, 255, .1); font-size: .875rem; color: var(--night-muted); font-variant-numeric: tabular-nums; }
+.foot a { color: var(--night-text); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .links { display: none; }
+  .menu-btn { display: inline-flex; align-items: center; }
+  .nav-right { margin-left: auto; }
+  .sound-label { display: none; }
+  .sec-note { grid-column: 1 / -1; }
+  .hero-bottom { grid-template-columns: 1fr; }
+  .toolkit-grid, .contact-grid { grid-template-columns: 1fr; }
+  .term { position: relative; top: 0; }
+  .outro-inner { grid-template-columns: 1fr; }
+  .player { justify-self: center; }
+  .method-track { flex-direction: column; width: auto; padding-inline: var(--gutter); }
+  .step { width: auto; min-height: 0; }
+  .step pre { margin-top: 10px; }
+  .method-progress { display: none; }
+}
+@media (max-width: 640px) {
+  .hero-top { flex-direction: column; }
+  .hero-top .right { text-align: left; }
+  .hero-foot .hint { display: none; }
+  .cert-grid { grid-template-columns: 1fr; }
+  .cert-info dl { grid-template-columns: repeat(2, auto); }
+  .term-line input { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .method-track { flex-direction: column; width: auto; padding-inline: var(--gutter); }
+  .step { width: auto; min-height: 0; }
+  .method-progress { display: none; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="loader" aria-hidden="true">
+  <div class="loader-top"><span>Portfolio</span><span>2026</span></div>
+  <div>
+    <div class="loader-name"><span><i>Swastik</i></span><span><i>Verma</i></span></div>
+    <div class="loader-bar"><span></span></div>
+  </div>
+</div>
+
+<div class="cursor" aria-hidden="true">
+  <div class="cursor-ring"><span class="cursor-label"></span></div>
+  <div class="cursor-dot"></div>
+</div>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="mark" href="#top" aria-label="Swastik Verma, back to top"><span class="mark-glyph">SV</span><span>Swastik Verma</span></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#about" data-scramble>About</a>
+      <a href="#method" data-scramble>Method</a>
+      <a href="#toolkit" data-scramble>Toolkit</a>
+      <a href="#certificates" data-scramble>Certificates</a>
+      <a href="#contact" data-scramble>Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="sound" type="button" aria-pressed="false" aria-label="Play music" data-music-toggle>
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="sound-label">Play music</span>
+      </button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <a href="#about" style="--i:0">About</a>
+  <a href="#method" style="--i:1">Method</a>
+  <a href="#toolkit" style="--i:2">Toolkit</a>
+  <a href="#certificates" style="--i:3">Certificates</a>
+  <a href="#contact" style="--i:4">Contact</a>
+  <p class="menu-foot">swastikverma46@gmail.com</p>
+</div>
+
+<main>
+  <section class="hero" id="top" aria-label="Introduction">
+    <canvas class="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <div class="hero-top">
+        <p data-fade style="--d:100ms"><strong>B.Tech in Computer Science &amp; AI</strong><br>Rishihood University × Newton School of Technology</p>
+        <p class="right" data-fade style="--d:200ms">Currently learning<br>
+          <span class="rotator" aria-live="off">
+            <span class="is-current">data structures in Python</span>
+            <span>Git branching, properly</span>
+            <span>the Linux terminal</span>
+            <span>how to break problems down</span>
+          </span>
+        </p>
+      </div>
+      <div class="hero-name-slot" aria-hidden="true"></div>
+      <div class="hero-bottom">
+        <h1 class="hero-h1" data-split>I’m Swastik Verma, a first-year engineer who takes problems apart until they make sense.</h1>
+        <div class="hero-actions" data-fade style="--d:650ms">
+          <a class="btn btn-solid" href="#certificates" data-magnetic><span class="btn-inner">See my certificates</span></a>
+          <a class="btn btn-line" href="#contact" data-magnetic><span class="btn-inner">Get in touch</span></a>
+        </div>
+      </div>
+      <div class="hero-foot" data-fade style="--d:800ms">
+        <span class="hint">Move through the name. Click to scatter it.</span>
+        <span><span class="clock">--:--</span> IST</span>
+        <span class="scroll-cue">Scroll <i></i></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <span class="marquee-item">Problem solver <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+        <span class="marquee-item outline">Python <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+        <span class="marquee-item">Git &amp; GitHub <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+        <span class="marquee-item outline">Terminal <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+        <span class="marquee-item">Computer Science &amp; AI <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+        <span class="marquee-item outline">Rishihood University <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+        <span class="marquee-item">Newton School of Technology <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section about" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="title">About</h2>
+        <p class="sec-note" data-reveal>Who I am, where I study, and what I’m working on this semester.</p>
+      </div>
+      <p class="statement">Give me a problem with no obvious first step and I’ll find one. I’m Swastik, a first-year B.Tech student in Computer Science and Artificial Intelligence at Rishihood University, studying with Newton School of Technology. I learn by building: small Python programs, scripts in the terminal, and a GitHub history that shows the work, mistakes included.</p>
+      <dl class="facts">
+        <div data-reveal style="--d:0ms"><dt>Studying</dt><dd>B.Tech, Computer Science &amp; AI</dd></div>
+        <div data-reveal style="--d:80ms"><dt>University</dt><dd>Rishihood University, with Newton School of Technology</dd></div>
+        <div data-reveal style="--d:160ms"><dt>Year</dt><dd>First year, started 2026</dd></div>
+        <div data-reveal style="--d:240ms"><dt>Working with</dt><dd>Python, Git, GitHub and the terminal</dd></div>
+        <div data-reveal style="--d:320ms"><dt>Open to</dt><dd>Hackathon teams, projects and internships</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="method" id="method">
+    <div class="method-pin">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 class="title">Method</h2>
+          <p class="sec-note" data-reveal>How I work through a problem, shown on a small one: find the top three scores in a class.</p>
+        </div>
+      </div>
+      <div class="method-track">
+        <article class="step" data-reveal>
+          <span class="step-n" aria-hidden="true">01</span>
+          <h3>Understand it</h3>
+          <p>Read the problem twice. Write down what’s given, what’s asked, and what “done” looks like.</p>
+<pre><code><span class="c"># given: marks = [72, 91, 85, 91, 60]</span>
+<span class="c"># asked: the top 3 different scores</span>
+<span class="c"># done:  [91, 85, 72]</span></code></pre>
+        </article>
+        <article class="step" data-reveal>
+          <span class="step-n" aria-hidden="true">02</span>
+          <h3>Make it smaller</h3>
+          <p>Split it into pieces I can check on their own. Most big problems are a few small ones stacked together.</p>
+<pre><code><span class="c"># 1. remove the duplicate 91</span>
+<span class="c"># 2. sort from high to low</span>
+<span class="c"># 3. keep the first three</span></code></pre>
+        </article>
+        <article class="step" data-reveal>
+          <span class="step-n" aria-hidden="true">03</span>
+          <h3>Build the rough version</h3>
+          <p>Get something working before making it pretty. A program that runs teaches me more than a plan that doesn’t.</p>
+<pre><code><span class="k">def</span> top3(marks):
+    <span class="k">return</span> sorted(set(marks), reverse=<span class="k">True</span>)[:3]
+
+print(top3(marks))   <span class="c"># [91, 85, 72]</span></code></pre>
+        </article>
+        <article class="step" data-reveal>
+          <span class="step-n" aria-hidden="true">04</span>
+          <h3>Break it on purpose</h3>
+          <p>Feed it the empty list, the one-item list, the list where everyone scored the same. Edge cases are where problems hide.</p>
+<pre><code>print(top3([]))         <span class="c"># []</span>
+print(top3([50]))       <span class="c"># [50]</span>
+print(top3([7, 7, 7]))  <span class="c"># [7]</span></code></pre>
+        </article>
+        <article class="step" data-reveal>
+          <span class="step-n" aria-hidden="true">05</span>
+          <h3>Clean up and commit</h3>
+          <p>Name things clearly, delete what isn’t needed, and write a commit message my future self will understand.</p>
+<pre><code>$ git add top3.py
+$ git commit -m <span class="s">"Add top3() with edge-case tests"</span>
+$ git push origin main</code></pre>
+        </article>
+      </div>
+      <div class="method-progress" aria-hidden="true"><div><span></span></div></div>
+    </div>
+  </section>
+
+  <section class="section toolkit" id="toolkit">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="title">Toolkit</h2>
+        <p class="sec-note" data-reveal>What I work with and how comfortable I am with each. The terminal works, so type a command and see.</p>
+      </div>
+      <div class="toolkit-grid">
+        <ul class="skills">
+          <li class="skill" data-reveal>
+            <div class="skill-top"><h3>Python</h3><span class="skill-level">Comfortable with the fundamentals</span></div>
+            <p>Variables, conditionals, loops, functions, strings and files, plus lists, dictionaries and tuples from the University of Michigan’s Python Data Structures course.</p>
+            <ul class="tags"><li>functions</li><li>loops</li><li>strings</li><li>files</li><li>lists</li><li>dictionaries</li><li>tuples</li></ul>
+          </li>
+          <li class="skill" data-reveal style="--d:60ms">
+            <div class="skill-top"><h3>Git &amp; GitHub</h3><span class="skill-level">Used on every project</span></div>
+            <p>Every change gets tracked. I branch for experiments, merge them back when they work, and push to GitHub so the work is visible and nothing gets lost.</p>
+            <ul class="tags"><li>commit</li><li>branch</li><li>merge</li><li>push &amp; pull</li><li>pull requests</li></ul>
+          </li>
+          <li class="skill" data-reveal style="--d:120ms">
+            <div class="skill-top"><h3>Terminal</h3><span class="skill-level">My daily workspace</span></div>
+            <p>Moving around the filesystem, creating and editing files, running scripts and chaining commands without reaching for the mouse.</p>
+            <ul class="tags"><li>cd &amp; ls</li><li>file operations</li><li>pipes</li><li>running Python</li></ul>
+          </li>
+          <li class="skill" data-reveal style="--d:180ms">
+            <div class="skill-top"><h3>Problem solving</h3><span class="skill-level">The part I enjoy most</span></div>
+            <p>Breaking a problem into parts, dry-running the logic on paper, and testing the edge cases before I call anything done.</p>
+            <ul class="tags"><li>decomposition</li><li>dry runs</li><li>edge cases</li><li>debugging</li></ul>
+          </li>
+        </ul>
+
+        <div class="term" data-reveal style="--d:120ms" role="region" aria-label="Interactive terminal">
+          <div class="term-bar"><span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>swastik@portfolio: ~</span></div>
+          <div class="term-body" data-lenis-prevent>
+            <div class="term-out" aria-live="polite"></div>
+            <form class="term-line" autocomplete="off">
+              <label for="term-input">swastik@portfolio:~$</label>
+              <input id="term-input" name="command" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Type a terminal command">
+            </form>
+          </div>
+          <div class="term-hints"><span>Try</span>
+            <button type="button" data-cmd="help">help</button>
+            <button type="button" data-cmd="whoami">whoami</button>
+            <button type="button" data-cmd="git log">git log</button>
+            <button type="button" data-cmd="python hello.py">python hello.py</button>
+            <button type="button" data-cmd="certs">certs</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section certs" id="certificates">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="title">Certificates</h2>
+        <p class="sec-note" data-reveal>The first two courses of the University of Michigan’s Python for Everybody series, taught by Dr. Charles Severance and offered through Coursera. Open one to see it full size.</p>
+      </div>
+      <div class="cert-grid">
+        <article class="cert">
+          <button class="cert-media" type="button" data-open="0" data-cursor="View" aria-label="View the Programming for Everybody certificate full size">
+            <img src="assets/cert-programming-for-everybody.webp" width="1609" height="1234" alt="Coursera course certificate: Swastik Verma has completed Programming for Everybody (Getting Started with Python), an online course authorized by the University of Michigan, 30 June 2026." loading="lazy" decoding="async">
+            <span class="glare"></span>
+          </button>
+          <div class="cert-info" data-reveal>
+            <p class="cert-series">Python for Everybody, course 1</p>
+            <h3>Programming for Everybody (Getting Started with Python)</h3>
+            <dl>
+              <div><dt>Issued by</dt><dd>University of Michigan</dd></div>
+              <div><dt>Completed</dt><dd>30 Jun 2026</dd></div>
+              <div><dt>Credential ID</dt><dd>T0GTQJAXCGVL</dd></div>
+            </dl>
+            <div class="cert-actions">
+              <button class="btn btn-line btn-small" type="button" data-open="0"><span class="btn-inner">View full size</span></button>
+              <a class="text-link" href="https://coursera.org/verify/T0GTQJAXCGVL" target="_blank" rel="noopener">Verify on Coursera</a>
+            </div>
+          </div>
+        </article>
+        <article class="cert">
+          <button class="cert-media" type="button" data-open="1" data-cursor="View" aria-label="View the Python Data Structures certificate full size">
+            <img src="assets/cert-python-data-structures.webp" width="1609" height="1234" alt="Coursera course certificate: Swastik Verma has completed Python Data Structures, an online course authorized by the University of Michigan, 3 July 2026." loading="lazy" decoding="async">
+            <span class="glare"></span>
+          </button>
+          <div class="cert-info" data-reveal style="--d:80ms">
+            <p class="cert-series">Python for Everybody, course 2</p>
+            <h3>Python Data Structures</h3>
+            <dl>
+              <div><dt>Issued by</dt><dd>University of Michigan</dd></div>
+              <div><dt>Completed</dt><dd>3 Jul 2026</dd></div>
+              <div><dt>Credential ID</dt><dd>ZG718HIUANK4</dd></div>
+            </dl>
+            <div class="cert-actions">
+              <button class="btn btn-line btn-small" type="button" data-open="1"><span class="btn-inner">View full size</span></button>
+              <a class="text-link" href="https://coursera.org/verify/ZG718HIUANK4" target="_blank" rel="noopener">Verify on Coursera</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-intro">
+        <div class="sec-head" style="margin-bottom:0"><h2 class="title">Contact</h2></div>
+        <p class="contact-lede" data-reveal>Have a problem worth solving, a team with a spot open, or a question about my work? Tell me who you are and why you’re reaching out, and I’ll reply by email.</p>
+        <div class="direct" data-reveal style="--d:120ms">
+          <span class="direct-label">Or write to me directly</span>
+          <div class="direct-row">
+            <a class="email-link" href="mailto:swastikverma46@gmail.com">swastikverma46@gmail.com</a>
+            <button class="copy-btn" type="button" data-copy-email>Copy address</button>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" id="contact-form" novalidate data-reveal style="--d:80ms">
+        <div class="field">
+          <input id="cf-name" name="name" type="text" autocomplete="name" placeholder=" " required aria-describedby="cf-name-err">
+          <label for="cf-name">Your name</label>
+          <span class="err" id="cf-name-err"></span>
+        </div>
+        <div class="field">
+          <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder=" " required aria-describedby="cf-email-err">
+          <label for="cf-email">Your email</label>
+          <span class="err" id="cf-email-err"></span>
+        </div>
+        <fieldset class="topics">
+          <legend>What’s it about?</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="topic" id="topic-internship" value="Internship or job"><span>Internship or job</span></label>
+            <label class="chip"><input type="radio" name="topic" id="topic-project" value="Project collaboration"><span>Project collaboration</span></label>
+            <label class="chip"><input type="radio" name="topic" id="topic-hackathon" value="Hackathon team"><span>Hackathon team</span></label>
+            <label class="chip"><input type="radio" name="topic" id="topic-mentorship" value="Mentorship"><span>Mentorship</span></label>
+            <label class="chip"><input type="radio" name="topic" id="topic-hello" value="Just saying hello"><span>Just saying hello</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <textarea id="cf-reason" name="reason" rows="4" placeholder=" " required aria-describedby="cf-reason-err"></textarea>
+          <label for="cf-reason">Your reason for reaching out</label>
+          <span class="err" id="cf-reason-err"></span>
+        </div>
+        <div class="form-foot">
+          <button class="btn btn-solid" type="submit" data-magnetic><span class="btn-inner">Send message</span></button>
+          <p class="form-note">Your email is only used to reply to you.</p>
+        </div>
+        <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="outro" id="outro" aria-label="Outro and music">
+    <div class="wrap outro-inner">
+      <div>
+        <p class="outro-kicker" data-reveal>Thanks for scrolling this far.</p>
+        <h2 class="outro-title" data-split>Stay for the outro.</h2>
+        <div class="track" data-reveal style="--d:200ms">
+          <p class="track-name">Afterglow <span class="track-time">0:00</span></p>
+          <p class="track-sub">A slow ambient piece composed in code and played live by your browser. The melody shifts a little every time, so no two plays sound the same.</p>
+        </div>
+      </div>
+      <div class="player" data-reveal style="--d:150ms">
+        <canvas class="viz" aria-hidden="true"></canvas>
+        <button class="play" type="button" aria-pressed="false" aria-label="Play Afterglow" data-music-toggle data-cursor="Play">
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1.2" fill="currentColor"/><rect x="14" y="4" width="4.5" height="16" rx="1.2" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+    <footer class="wrap">
+      <div class="foot">
+        <span>© 2026 Swastik Verma</span>
+        <span>B.Tech CS &amp; AI, Rishihood University × Newton School of Technology</span>
+        <a href="#top" class="text-link">Back to top</a>
+      </div>
+    </footer>
+  </section>
+</main>
+
+<div class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Certificate viewer">
+  <div class="lb-backdrop" data-lb-close></div>
+  <div class="lb-controls">
+    <button class="lb-btn" type="button" data-lb-prev>Previous</button>
+    <button class="lb-btn" type="button" data-lb-next>Next</button>
+    <button class="lb-btn" type="button" data-lb-close>Close</button>
+  </div>
+  <figure class="lb-figure">
+    <div class="lb-frame"><img class="lb-img" alt="" width="1609" height="1234" data-cursor="Zoom"></div>
+    <figcaption class="lb-cap"><span><strong class="lb-title"></strong><br><span class="lb-meta"></span></span><a class="text-link lb-verify" target="_blank" rel="noopener" href="#">Verify on Coursera</a></figcaption>
+  </figure>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script>
+(() => {
+  'use strict';
+
+  /* ===================== config ===================== */
+  const CONFIG = {
+    email: 'swastikverma46@gmail.com',
+    // FormSubmit forwards contact-form messages to the address above once the site is hosted
+    // on its own domain (the first message triggers a one-time activation email).
+    formEndpoint: 'https://formsubmit.co/ajax/swastikverma46@gmail.com'
+  };
+
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const G = window.gsap, ST = window.ScrollTrigger;
+  const hasG = !!(G && ST);
+  if (hasG) G.registerPlugin(ST);
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  /* ===================== smooth scroll ===================== */
+  let lenis = null;
+  if (!reduce && window.Lenis) {
+    lenis = new window.Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    if (hasG) {
+      lenis.on('scroll', ST.update);
+      G.ticker.add(t => lenis.raf(t * 1000));
+      G.ticker.lagSmoothing(0);
+    } else {
+      const loop = t => { lenis.raf(t); requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+    }
+  }
+  function goTo(el) {
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { duration: 1.6 });
+    else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  /* ===================== word splitting ===================== */
+  function splitWords(el, cls = 'w') {
+    let i = 0;
+    const walk = node => {
+      Array.from(node.childNodes).forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            if (cls === 'w') {
+              const w = document.createElement('span'); w.className = 'w';
+              const wi = document.createElement('span'); wi.className = 'wi'; wi.textContent = part;
+              wi.style.setProperty('--i', i++);
+              w.appendChild(wi); frag.appendChild(w);
+            } else {
+              const s = document.createElement('span'); s.className = cls; s.textContent = part; i++;
+              frag.appendChild(s);
+            }
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1) walk(n);
+      });
+    };
+    walk(el);
+    return i;
+  }
+  $$('[data-split]').forEach(el => splitWords(el));
+
+  /* ===================== reveal on view ===================== */
+  const revealIO = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.01 });
+  $$('[data-reveal], [data-split]').forEach(el => { if (!el.closest('.hero')) revealIO.observe(el); });
+
+  /* ===================== nav, progress, active section ===================== */
+  const nav = $('#nav'), progress = $('.progress'), outro = $('#outro'), cursorEl = $('.cursor');
+  let lastY = window.scrollY, menuOpen = false;
+  function onScroll() {
+    const y = window.scrollY;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${max > 0 ? clamp(y / max, 0, 1) : 0})`;
+    nav.classList.toggle('is-scrolled', y > 30);
+    if (!menuOpen && y > lastY + 4 && y > 420) nav.classList.add('is-hidden');
+    else if (y < lastY - 4 || y < 420) nav.classList.remove('is-hidden');
+    const dark = outro.getBoundingClientRect().top < 44;
+    nav.classList.toggle('on-dark', dark);
+    progress.style.background = dark ? 'var(--saffron)' : '';
+    lastY = y;
+  }
+  if (lenis) lenis.on('scroll', onScroll); else addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const linkMap = new Map($$('.links a').map(a => [a.getAttribute('href').slice(1), a]));
+  const secIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const a = linkMap.get(e.target.id);
+      if (a && e.isIntersecting) { linkMap.forEach(l => l.classList.remove('is-active')); a.classList.add('is-active'); }
+      if (a && !e.isIntersecting && a.classList.contains('is-active') && e.boundingClientRect.top > 0) a.classList.remove('is-active');
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['about', 'method', 'toolkit', 'certificates', 'contact'].forEach(id => { const s = document.getElementById(id); if (s) secIO.observe(s); });
+
+  /* in-page links */
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href');
+    if (id.length < 2) return;
+    const target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    if (menuOpen) toggleMenu(false);
+    goTo(target);
+  });
+
+  /* mobile menu */
+  const menu = $('#menu'), menuBtn = $('.menu-btn');
+  function toggleMenu(open) {
+    menuOpen = open;
+    menu.classList.toggle('is-open', open);
+    menu.setAttribute('aria-hidden', String(!open));
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.textContent = open ? 'Close' : 'Menu';
+    nav.classList.remove('is-hidden');
+    if (lenis) open ? lenis.stop() : lenis.start();
+    if (open) setTimeout(() => menu.querySelector('a').focus({ preventScroll: true }), 400);
+  }
+  menuBtn.addEventListener('click', () => toggleMenu(!menuOpen));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) { toggleMenu(false); menuBtn.focus(); } });
+
+  /* text scramble on nav links */
+  if (finePointer && !reduce) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz';
+    $$('[data-scramble]').forEach(a => {
+      const original = a.textContent; let raf = 0;
+      a.addEventListener('mouseenter', () => {
+        cancelAnimationFrame(raf);
+        const start = performance.now(), dur = 420;
+        const step = now => {
+          const p = clamp((now - start) / dur, 0, 1);
+          const fixed = Math.floor(p * original.length);
+          a.textContent = original.split('').map((ch, i) => i < fixed || ch === ' ' ? ch : chars[(Math.random() * 26) | 0]).join('');
+          if (p < 1) raf = requestAnimationFrame(step); else a.textContent = original;
+        };
+        raf = requestAnimationFrame(step);
+      });
+    });
+  }
+
+  /* ===================== clock + rotator ===================== */
+  const clockEl = $('.clock');
+  const fmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' });
+  const tickClock = () => { clockEl.textContent = fmt.format(new Date()); };
+  tickClock(); setInterval(tickClock, 15000);
+
+  const rot = $$('.rotator span');
+  if (!reduce && rot.length > 1) {
+    let ri = 0;
+    setInterval(() => {
+      const cur = rot[ri]; ri = (ri + 1) % rot.length; const nxt = rot[ri];
+      cur.classList.remove('is-current'); cur.classList.add('is-out');
+      nxt.classList.remove('is-out'); nxt.classList.add('is-current');
+      setTimeout(() => cur.classList.remove('is-out'), 950);
+    }, 2800);
+  }
+  if (!finePointer) { const h = $('.hero-foot .hint'); if (h) h.textContent = 'Tap the name to scatter it.'; }
+
+  /* ===================== custom cursor ===================== */
+  const Cursor = (() => {
+    if (!finePointer || reduce) return { setDark() {} };
+    root.classList.add('has-cursor');
+    const dot = $('.cursor-dot'), ring = $('.cursor-ring'), label = $('.cursor-label');
+    let x = -100, y = -100, rx = -100, ry = -100;
+    addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; cursorEl.classList.remove('is-away'); }, { passive: true });
+    document.addEventListener('pointerleave', () => cursorEl.classList.add('is-away'));
+    const loop = () => {
+      rx = lerp(rx, x, 0.18); ry = lerp(ry, y, 0.18);
+      dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+    document.addEventListener('pointerover', e => {
+      const t = e.target;
+      const lab = t.closest('[data-cursor]');
+      const text = t.closest('input, textarea');
+      const hov = t.closest('a, button, label, [data-cmd]');
+      cursorEl.classList.toggle('is-text', !!text);
+      if (lab && !text) {
+        let l = lab.getAttribute('data-cursor');
+        if (lab.classList.contains('play')) l = lab.getAttribute('aria-pressed') === 'true' ? 'Pause' : 'Play';
+        if (lab.classList.contains('lb-img')) l = lab.classList.contains('is-zoomed') ? 'Zoom out' : 'Zoom';
+        label.textContent = l;
+        cursorEl.classList.add('is-label'); cursorEl.classList.remove('is-hover');
+      } else {
+        cursorEl.classList.remove('is-label');
+        cursorEl.classList.toggle('is-hover', !!hov && !text);
+      }
+    });
+    return {
+      refreshLabel(el) { if (cursorEl.classList.contains('is-label') && el) label.textContent = el; },
+      setDark(v) { cursorEl.classList.toggle('on-dark', v); }
+    };
+  })();
+  document.addEventListener('pointerover', e => {
+    const onDark = !!e.target.closest('.outro, .term, .lightbox, .loader, .step pre');
+    Cursor.setDark(onDark);
+  });
+
+  /* magnetic buttons */
+  if (finePointer && !reduce) {
+    $$('[data-magnetic]').forEach(el => {
+      const inner = el.querySelector('.btn-inner') || el;
+      el.addEventListener('pointermove', e => {
+        const r = el.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        el.style.transform = `translate(${dx * 0.22}px, ${dy * 0.32}px)`;
+        inner.style.transform = `translate(${dx * 0.12}px, ${dy * 0.16}px)`;
+      });
+      el.addEventListener('pointerleave', () => {
+        el.style.transition = 'transform .7s cubic-bezier(.16,1,.3,1), color .5s';
+        inner.style.transition = 'transform .7s cubic-bezier(.16,1,.3,1)';
+        el.style.transform = ''; inner.style.transform = '';
+        setTimeout(() => { el.style.transition = ''; inner.style.transition = ''; }, 700);
+      });
+    });
+  }
+
+  /* ===================== hero particle name ===================== */
+  const Hero = (() => {
+    const hero = $('.hero'), cvs = $('.hero-canvas'), ctx = cvs.getContext('2d'), slot = $('.hero-name-slot');
+    const COLORS = ['#2340E0', '#1A1C22', '#7D90F0', '#F5A300'];
+    let W = 0, H = 0, dpr = 1, P = [], A = [], groups = [[], [], [], []], visible = true, raf = 0, introAt = 0, started = false, lastW = 0;
+    let dash = 6, lw = 1.6, shock = null;
+    const mouse = { x: -1e4, y: -1e4, tx: -1e4, ty: -1e4, on: false };
+
+    function lines() { return innerWidth < 640 ? ['Swastik', 'Verma'] : ['Swastik']; }
+
+    function measure(words, size) {
+      const c = document.createElement('canvas').getContext('2d');
+      c.font = `800 ${size}px Archivo, "Helvetica Neue", Arial, sans-serif`;
+      try { c.fontStretch = 'expanded'; } catch (e) { /* not supported */ }
+      let w = 0, asc = 0, desc = 0, left = 0;
+      words.forEach(word => {
+        const m = c.measureText(word);
+        w = Math.max(w, m.actualBoundingBoxLeft + m.actualBoundingBoxRight);
+        asc = Math.max(asc, m.actualBoundingBoxAscent); desc = Math.max(desc, m.actualBoundingBoxDescent);
+        left = Math.max(left, m.actualBoundingBoxLeft);
+      });
+      return { w, asc, desc, left };
+    }
+
+    function build() {
+      const words = lines();
+      const sw = slot.clientWidth;
+      let size = 100;
+      const m0 = measure(words, size);
+      size = Math.min(440, size * (sw / m0.w) * 0.995);
+      const m = measure(words, size);
+      const lineGap = size * 0.1;
+      const lineH = m.asc + m.desc;
+      const textH = lineH * words.length + lineGap * (words.length - 1);
+      slot.style.height = Math.ceil(textH) + 'px';
+
+      const hr = hero.getBoundingClientRect();
+      W = hr.width; H = hr.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const sr = slot.getBoundingClientRect();
+      const ox = sr.left - hr.left, oy = sr.top - hr.top;
+      const off = document.createElement('canvas');
+      off.width = Math.ceil(sw); off.height = Math.ceil(textH) + 2;
+      const o = off.getContext('2d', { willReadFrequently: true });
+      o.font = `800 ${size}px Archivo, "Helvetica Neue", Arial, sans-serif`;
+      try { o.fontStretch = 'expanded'; } catch (e) { /* not supported */ }
+      o.fillStyle = '#000';
+      words.forEach((word, i) => o.fillText(word, m.left, m.asc + i * (lineH + lineGap)));
+      const data = o.getImageData(0, 0, off.width, off.height).data;
+
+      let gap = clamp(Math.round(size / 34), 3, 7);
+      const collect = g => {
+        const pts = [];
+        for (let y = 0; y < off.height; y += g) {
+          for (let x = 0; x < off.width; x += g) {
+            if (data[(y * off.width + x) * 4 + 3] > 140) pts.push([ox + x, oy + y]);
+          }
+        }
+        return pts;
+      };
+      let targets = collect(gap);
+      while (targets.length > 2800 && gap < 12) targets = collect(++gap);
+      dash = gap * 0.78; lw = clamp(gap * 0.3, 1.05, 2.1);
+
+      const old = P;
+      P = targets.map((t, i) => {
+        const prev = old[i];
+        const r = Math.random();
+        return {
+          tx: t[0], ty: t[1],
+          x: prev ? prev.x : t[0] + (Math.random() - 0.5) * W * 0.5,
+          y: prev ? prev.y : H + 30 + Math.random() * H * 0.9,
+          vx: 0, vy: prev ? 0 : -(2 + Math.random() * 4),
+          a: -0.9 + (Math.random() - 0.5) * 0.3,
+          base: -0.9 + (Math.random() - 0.5) * 0.25,
+          s: Math.random() * 6.28,
+          l: dash * (0.75 + Math.random() * 0.5),
+          d: (t[0] / W) * 650 + Math.random() * 450,
+          c: r < 0.62 ? 0 : r < 0.84 ? 1 : r < 0.93 ? 2 : 3
+        };
+      });
+      const n = clamp(Math.round(W * H / 6500), 50, 280);
+      A = Array.from({ length: n }, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        vy: -(0.12 + Math.random() * 0.38), s: Math.random() * 6.28,
+        a: -0.9, l: 4 + Math.random() * 5, c: Math.random() < 0.8 ? 2 : 3
+      }));
+      groups = [[], [], [], []];
+      P.forEach(p => groups[p.c].push(p));
+      lastW = innerWidth;
+      if (reduce) drawStatic();
+    }
+
+    function angDiff(a, b) { let d = a - b; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; return d; }
+
+    function drawStatic() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineCap = 'round'; ctx.lineWidth = lw;
+      groups.forEach((g, ci) => {
+        ctx.strokeStyle = COLORS[ci]; ctx.beginPath();
+        g.forEach(p => {
+          const c = Math.cos(p.base) * p.l * 0.5, s = Math.sin(p.base) * p.l * 0.5;
+          ctx.moveTo(p.tx - c, p.ty - s); ctx.lineTo(p.tx + c, p.ty + s);
+        });
+        ctx.stroke();
+      });
+    }
+
+    function frame(now) {
+      raf = 0;
+      if (!visible) return;
+      raf = requestAnimationFrame(frame);
+      ctx.clearRect(0, 0, W, H);
+      if (!started) return;
+      mouse.x = lerp(mouse.x, mouse.tx, 0.25); mouse.y = lerp(mouse.y, mouse.ty, 0.25);
+      const R = clamp(W * 0.1, 90, 170), R2 = R * R;
+      const F = R * 2.8, F2 = F * F;
+      const t = now - introAt;
+
+      // ambient dashes, drifting upward
+      ctx.lineCap = 'round'; ctx.lineWidth = 1.2;
+      for (let ci = 2; ci <= 3; ci++) {
+        ctx.strokeStyle = COLORS[ci]; ctx.globalAlpha = ci === 2 ? 0.4 : 0.55; ctx.beginPath();
+        for (const p of A) {
+          if (p.c !== ci) continue;
+          p.y += p.vy; p.x += Math.sin(now * 0.0004 + p.s) * 0.15;
+          if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+          const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
+          const ta = mouse.on && d2 < F2 ? Math.atan2(dy, dx) + Math.PI / 2 : -0.9 + Math.sin(now * 0.0003 + p.s) * 0.5;
+          p.a += angDiff(ta, p.a) * 0.08;
+          const c = Math.cos(p.a) * p.l * 0.5, s = Math.sin(p.a) * p.l * 0.5;
+          ctx.moveTo(p.x - c, p.y - s); ctx.lineTo(p.x + c, p.y + s);
+        }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      // the name
+      ctx.lineWidth = lw;
+      for (let ci = 0; ci < 4; ci++) {
+        ctx.strokeStyle = COLORS[ci]; ctx.beginPath();
+        for (const p of groups[ci]) {
+          const local = clamp((t - p.d) / 1500, 0, 1);
+          const k = 0.004 + 0.05 * easeOut(local);
+          const bob = Math.sin(now * 0.0011 + p.s) * 0.9;
+          let ax = (p.tx - p.x) * k, ay = (p.ty + bob - p.y) * k;
+          const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
+          if (d2 < R2) {
+            const d = Math.sqrt(d2) || 1, f = (1 - d / R) * 2.6;
+            ax += (dx / d) * f; ay += (dy / d) * f;
+          }
+          p.vx = (p.vx + ax) * 0.86; p.vy = (p.vy + ay) * 0.86;
+          p.x += p.vx; p.y += p.vy;
+          const sp = p.vx * p.vx + p.vy * p.vy;
+          let ta;
+          if (sp > 2.2) ta = Math.atan2(p.vy, p.vx);
+          else if (mouse.on && d2 < F2) ta = Math.atan2(dy, dx) + Math.PI / 2;
+          else ta = p.base + Math.sin(now * 0.0005 + p.s) * 0.18;
+          p.a += angDiff(ta, p.a) * 0.11;
+          const c = Math.cos(p.a) * p.l * 0.5, s = Math.sin(p.a) * p.l * 0.5;
+          ctx.moveTo(p.x - c, p.y - s); ctx.lineTo(p.x + c, p.y + s);
+        }
+        ctx.stroke();
+      }
+
+      if (shock) {
+        const st = (now - shock.t) / 800;
+        if (st >= 1) shock = null;
+        else {
+          ctx.strokeStyle = COLORS[0]; ctx.globalAlpha = (1 - st) * 0.5; ctx.lineWidth = 1.2;
+          ctx.beginPath(); ctx.arc(shock.x, shock.y, 20 + easeOut(st) * 260, 0, Math.PI * 2); ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+    }
+
+    function start() {
+      build();
+      started = true; introAt = performance.now();
+      if (!reduce && !raf) raf = requestAnimationFrame(frame);
+    }
+
+    hero.addEventListener('pointermove', e => {
+      const r = cvs.getBoundingClientRect();
+      mouse.tx = e.clientX - r.left; mouse.ty = e.clientY - r.top;
+      if (!mouse.on) { mouse.x = mouse.tx; mouse.y = mouse.ty; }
+      mouse.on = true;
+    });
+    hero.addEventListener('pointerleave', () => { mouse.on = false; mouse.x = mouse.y = mouse.tx = mouse.ty = -1e4; });
+    hero.addEventListener('click', e => {
+      if (reduce || e.target.closest('a, button')) return;
+      const r = cvs.getBoundingClientRect();
+      const cx = e.clientX - r.left, cy = e.clientY - r.top;
+      for (const p of P) {
+        const dx = p.x - cx, dy = p.y - cy, d = Math.hypot(dx, dy) || 1;
+        const f = Math.min(34, 5200 / (d + 70));
+        p.vx += (dx / d) * f; p.vy += (dy / d) * f;
+      }
+      shock = { x: cx, y: cy, t: performance.now() };
+    });
+    new IntersectionObserver(es => {
+      visible = es[0].isIntersecting;
+      if (visible && started && !reduce && !raf) raf = requestAnimationFrame(frame);
+    }).observe(hero);
+    let rt = 0;
+    addEventListener('resize', () => {
+      if (!started || Math.abs(innerWidth - lastW) < 2) return;
+      clearTimeout(rt); rt = setTimeout(() => { build(); if (hasG) ST.refresh(); }, 180);
+    });
+    return { start };
+  })();
+
+  /* ===================== marquee ===================== */
+  (() => {
+    const track = $('.marquee-track'), group = $('.marquee-group');
+    track.appendChild(group.cloneNode(true));
+    if (reduce) return;
+    let x = 0, vel = 0, dir = 1, last = performance.now(), on = true;
+    new IntersectionObserver(es => { on = es[0].isIntersecting; }).observe($('.marquee'));
+    const loop = now => {
+      const dt = Math.min(48, now - last); last = now;
+      if (on) {
+        const v = lenis ? lenis.velocity : 0;
+        vel = lerp(vel, v, 0.08);
+        if (Math.abs(v) > 0.5) dir = v > 0 ? 1 : -1;
+        const half = group.offsetWidth;
+        x -= (0.045 * dt + Math.abs(vel) * 0.32) * dir;
+        if (x <= -half) x += half;
+        if (x > 0) x -= half;
+        track.style.transform = `translate3d(${x.toFixed(2)}px,0,0) skewX(${clamp(-vel * 0.35, -9, 9).toFixed(2)}deg)`;
+      }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  })();
+
+  /* ===================== scroll-linked motion ===================== */
+  const statement = $('.statement');
+  const nWords = splitWords(statement, 'sw');
+  if (hasG && !reduce) {
+    // section titles stretch open as they arrive
+    $$('.title').forEach(t => {
+      G.fromTo(t, { '--wdth': 62, '--wght': 260 }, {
+        '--wdth': 125, '--wght': 760, ease: 'none',
+        scrollTrigger: { trigger: t, start: 'top 98%', end: 'top 50%', scrub: 0.7 }
+      });
+    });
+    // about statement lights up word by word
+    G.fromTo($$('.sw', statement), { opacity: 0.14 }, {
+      opacity: 1, ease: 'none', stagger: 0.1,
+      scrollTrigger: { trigger: statement, start: 'top 82%', end: 'bottom 52%', scrub: 0.5 }
+    });
+    // certificates swing flat as they rise
+    $$('.cert').forEach((c, i) => {
+      G.fromTo(c, { rotateX: 18, rotateY: i % 2 ? -12 : 12, y: 90, transformPerspective: 1300 }, {
+        rotateX: 0, rotateY: 0, y: 0, ease: 'none',
+        scrollTrigger: { trigger: c, start: 'top 100%', end: 'top 50%', scrub: 0.8 }
+      });
+    });
+    // the night panel opens up
+    G.fromTo(outro, { clipPath: 'inset(7% 5% 0% 5% round 56px)' }, {
+      clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none',
+      scrollTrigger: { trigger: outro, start: 'top bottom', end: 'top 20%', scrub: true }
+    });
+    // hero content drifts and fades as you leave it
+    G.to('.hero-inner', { yPercent: -8, opacity: 0.2, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+    // horizontal method on wide screens
+    const mm = G.matchMedia();
+    mm.add('(min-width: 901px)', () => {
+      const sec = $('#method'), track = $('.method-track'), bar = $('.method-progress span');
+      const dist = () => Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
+      const tween = G.to(track, {
+        x: () => -dist(), ease: 'none',
+        scrollTrigger: {
+          trigger: sec, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.8,
+          invalidateOnRefresh: true, anticipatePin: 1,
+          onUpdate: self => { bar.style.transform = `scaleX(${self.progress.toFixed(4)})`; }
+        }
+      });
+      $$('.step', track).forEach(step => ST.create({
+        trigger: step, containerAnimation: tween, start: 'left 75%', end: 'right 25%',
+        onToggle: self => step.classList.toggle('is-on', self.isActive)
+      }));
+    });
+  } else {
+    $$('.sw', statement).forEach(s => { s.style.opacity = 1; });
+  }
+  // narrow screens: steps light up as they enter
+  const stepIO = new IntersectionObserver(es => es.forEach(e => {
+    if (innerWidth <= 900 || reduce || !hasG) e.target.classList.toggle('is-on', e.isIntersecting);
+  }), { rootMargin: '-35% 0px -35% 0px' });
+  $$('.step').forEach(s => stepIO.observe(s));
+
+  /* ===================== terminal ===================== */
+  const Terminal = (() => {
+    const body = $('.term-body'), out = $('.term-out'), form = $('.term-line'), input = $('#term-input');
+    const PROMPT = 'swastik@portfolio:~$';
+    const hist = []; let hIdx = 0, autoplaying = false, userTouched = false;
+
+    const line = (html = '', cls = '') => {
+      const d = document.createElement('div'); d.className = 'ln' + (cls ? ' ' + cls : ''); d.innerHTML = html;
+      out.appendChild(d); body.scrollTop = body.scrollHeight; return d;
+    };
+    const lines = arr => arr.forEach(l => line(l));
+    const hash = s => { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(16).padStart(8, '0').slice(0, 7); };
+    const link = (href, text) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
+
+    const C = {
+      help: () => lines([
+        '<span class="t-dim">Commands you can try:</span>',
+        '  <span class="t-acc">whoami</span>           who I am, in one line',
+        '  <span class="t-acc">about</span>            a little more than one line',
+        '  <span class="t-acc">skills</span>           what I work with',
+        '  <span class="t-acc">education</span>        where I study',
+        '  <span class="t-acc">certs</span>            certificates, with links to verify',
+        '  <span class="t-acc">git log</span>          my learning history, newest first',
+        '  <span class="t-acc">ls</span>, <span class="t-acc">cat about.txt</span>  look around the files',
+        '  <span class="t-acc">python hello.py</span>  run a tiny Python program',
+        '  <span class="t-acc">contact</span>          jump to the contact form',
+        '  <span class="t-acc">music</span>            play or pause the outro music',
+        '  <span class="t-acc">clear</span>            clear the screen'
+      ]),
+      whoami: () => line('Swastik Verma. B.Tech CS &amp; AI, first year. Problem solver.'),
+      about: () => lines([
+        "I'm Swastik, a first-year B.Tech student in Computer Science and AI",
+        'at Rishihood University, studying with Newton School of Technology.',
+        "I like problems that don't have an obvious first step."
+      ]),
+      skills: () => lines([
+        '<span class="t-acc">python</span>           comfortable with the fundamentals and data structures',
+        '<span class="t-acc">git, github</span>      every project is versioned',
+        '<span class="t-acc">terminal</span>         my daily workspace',
+        '<span class="t-acc">problem solving</span>  the part I enjoy most'
+      ]),
+      education: () => lines([
+        'Rishihood University × Newton School of Technology',
+        'B.Tech, Computer Science &amp; Artificial Intelligence',
+        '<span class="t-dim">First year, started 2026</span>'
+      ]),
+      certs: () => lines([
+        '<span class="t-ok">programming-for-everybody.pdf</span>  University of Michigan, 30 Jun 2026',
+        '  verify: ' + link('https://coursera.org/verify/T0GTQJAXCGVL', 'coursera.org/verify/T0GTQJAXCGVL'),
+        '<span class="t-ok">python-data-structures.pdf</span>     University of Michigan, 3 Jul 2026',
+        '  verify: ' + link('https://coursera.org/verify/ZG718HIUANK4', 'coursera.org/verify/ZG718HIUANK4')
+      ]),
+      'git log': () => {
+        const log = [
+          ['practise data structures and algorithms', '(HEAD -&gt; main)'],
+          ['start B.Tech CS &amp; AI at Rishihood University × NST', ''],
+          ['complete Python Data Structures, University of Michigan (3 Jul 2026)', ''],
+          ['complete Programming for Everybody, University of Michigan (30 Jun 2026)', ''],
+          ['init: curiosity', '']
+        ];
+        log.forEach(([msg, ref]) => line(`<span class="t-prompt">*</span> <span class="t-acc">${hash(msg)}</span> ${ref ? `<span class="t-ok">${ref}</span> ` : ''}${msg}`));
+      },
+      ls: () => line('<span class="t-acc">about.txt</span>  <span class="t-acc">skills.txt</span>  <span class="t-acc">hello.py</span>  <span class="t-ok">certificates/</span>  <span class="t-acc">contact.sh</span>'),
+      'ls certificates': () => C.certs(),
+      'cat about.txt': () => C.about(),
+      'cat skills.txt': () => C.skills(),
+      'cat hello.py': () => lines([
+        '<span class="t-acc">def</span> top3(marks):',
+        '    <span class="t-acc">return</span> sorted(set(marks), reverse=<span class="t-acc">True</span>)[:3]',
+        '',
+        'print(<span class="t-ok">"Hello, I\'m Swastik."</span>)',
+        'print(top3([72, 91, 85, 91, 60]))'
+      ]),
+      'cat contact.sh': () => line('<span class="t-dim">#!/bin/sh</span>\necho "Run ./contact.sh to open the contact form"'),
+      'python hello.py': () => lines(["Hello, I'm Swastik.", '[91, 85, 72]']),
+      'python3 hello.py': () => C['python hello.py'](),
+      python: () => line('<span class="t-dim">There is no full Python here, but try</span> <span class="t-acc">python hello.py</span>'),
+      contact: () => { line('Opening the contact form…'); setTimeout(() => goTo($('#contact')), 450); },
+      './contact.sh': () => C.contact(),
+      'sudo hire swastik': () => { line('<span class="t-ok">[sudo] permission granted.</span> Taking you to the contact form…'); setTimeout(() => goTo($('#contact')), 600); },
+      music: () => { const on = Music.toggle(); line(on ? 'Playing <span class="t-acc">Afterglow</span>. Type music again to pause.' : 'Music paused.'); },
+      pwd: () => line('/home/swastik/portfolio'),
+      date: () => line(new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'short', timeZone: 'Asia/Kolkata' }).format(new Date()) + ' IST'),
+      clear: () => { out.innerHTML = ''; },
+      exit: () => line("There's no exit here. Scroll down, the outro has music."),
+      hello: () => line('Hey! Type <span class="t-acc">help</span> to look around.'),
+      hi: () => C.hello()
+    };
+    const NAMES = Object.keys(C);
+
+    function run(raw) {
+      const cmd = raw.trim();
+      line(`<span class="t-prompt">${PROMPT}</span> <span class="t-cmd">${esc(cmd)}</span>`);
+      if (!cmd) return;
+      hist.push(cmd); hIdx = hist.length;
+      const key = cmd.toLowerCase().replace(/\s+/g, ' ').replace(/\/$/, '');
+      if (C[key]) return C[key]();
+      if (key.startsWith('echo ')) return line(esc(cmd.slice(5)));
+      if (key.startsWith('cd')) return line('Everything worth seeing is in this folder.');
+      if (key.startsWith('rm ')) return line("Let's not delete anything today.");
+      if (key.startsWith('sudo')) return line('Nice try. The only sudo command here is <span class="t-acc">sudo hire swastik</span>.');
+      if (key.startsWith('cat ')) return line(`<span class="t-err">cat: ${esc(cmd.slice(4))}: No such file.</span> Try <span class="t-acc">ls</span> to see the files.`);
+      line(`<span class="t-err">command not found: ${esc(cmd.split(' ')[0])}</span>. Type <span class="t-acc">help</span> to see what works.`);
+    }
+
+    async function typeAndRun(cmd, speed = 55) {
+      input.value = '';
+      for (const ch of cmd) { input.value += ch; await wait(speed + Math.random() * 40); }
+      await wait(220);
+      input.value = '';
+      run(cmd);
+    }
+
+    form.addEventListener('submit', e => { e.preventDefault(); userTouched = true; const v = input.value; input.value = ''; run(v); });
+    input.addEventListener('keydown', e => {
+      userTouched = true;
+      if (e.key === 'ArrowUp') { if (hIdx > 0) { hIdx--; input.value = hist[hIdx]; } e.preventDefault(); }
+      else if (e.key === 'ArrowDown') { if (hIdx < hist.length - 1) { hIdx++; input.value = hist[hIdx]; } else { hIdx = hist.length; input.value = ''; } e.preventDefault(); }
+      else if (e.key === 'Tab') {
+        const v = input.value.toLowerCase();
+        if (v) { const m = NAMES.filter(n => n.startsWith(v)); if (m.length === 1) input.value = m[0]; else if (m.length > 1) line('<span class="t-dim">' + m.join('   ') + '</span>'); e.preventDefault(); }
+      } else if (e.key === 'l' && e.ctrlKey) { e.preventDefault(); C.clear(); }
+    });
+    body.addEventListener('click', e => { if (!e.target.closest('a') && !window.getSelection().toString()) input.focus({ preventScroll: true }); });
+    $$('.term-hints [data-cmd]').forEach(b => b.addEventListener('click', () => { userTouched = true; if (!autoplaying) typeAndRun(b.dataset.cmd, 28); }));
+
+    line('<span class="t-dim">Welcome. This terminal works: type a command or tap one below.</span>');
+    line('');
+    const io = new IntersectionObserver(async es => {
+      if (!es[0].isIntersecting) return;
+      io.disconnect();
+      if (reduce) { run('whoami'); return; }
+      autoplaying = true;
+      await wait(700);
+      if (!userTouched) await typeAndRun('whoami');
+      await wait(650);
+      if (!userTouched) await typeAndRun('git log');
+      autoplaying = false;
+    }, { threshold: 0.4 });
+    io.observe($('.term'));
+    return { run };
+  })();
+
+  /* ===================== certificates: tilt + lightbox ===================== */
+  const CERTS = [
+    { src: 'assets/cert-programming-for-everybody.webp', title: 'Programming for Everybody (Getting Started with Python)', meta: 'University of Michigan via Coursera, completed 30 Jun 2026', verify: 'https://coursera.org/verify/T0GTQJAXCGVL', alt: $$('.cert-media img')[0].alt },
+    { src: 'assets/cert-python-data-structures.webp', title: 'Python Data Structures', meta: 'University of Michigan via Coursera, completed 3 Jul 2026', verify: 'https://coursera.org/verify/ZG718HIUANK4', alt: $$('.cert-media img')[1].alt }
+  ];
+  const medias = $$('.cert-media');
+  if (finePointer && !reduce) {
+    medias.forEach(m => {
+      m.addEventListener('pointermove', e => {
+        const r = m.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        m.style.setProperty('--ry', ((px - 0.5) * 14).toFixed(2) + 'deg');
+        m.style.setProperty('--rx', ((0.5 - py) * 10).toFixed(2) + 'deg');
+        m.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
+        m.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+        m.classList.add('is-tilting');
+      });
+      m.addEventListener('pointerleave', () => { m.classList.remove('is-tilting'); m.style.setProperty('--rx', '0deg'); m.style.setProperty('--ry', '0deg'); });
+    });
+  }
+
+  const Lightbox = (() => {
+    const lb = $('.lightbox'), frame = $('.lb-frame'), img = $('.lb-img');
+    const titleEl = $('.lb-title'), metaEl = $('.lb-meta'), verifyEl = $('.lb-verify');
+    let cur = 0, lastFocus = null, isOpen = false;
+    const fill = i => {
+      const c = CERTS[i];
+      img.src = c.src; img.alt = c.alt;
+      titleEl.textContent = c.title; metaEl.textContent = c.meta; verifyEl.href = c.verify;
+      img.classList.remove('is-zoomed');
+    };
+    const flipFrom = (fromRect, toRect) => [
+      { transform: `translate(${fromRect.left - toRect.left}px, ${fromRect.top - toRect.top}px) scale(${fromRect.width / toRect.width}, ${fromRect.height / toRect.height})`, borderRadius: '18px' },
+      { transform: 'none', borderRadius: '14px' }
+    ];
+    function open(i) {
+      cur = i; lastFocus = document.activeElement; fill(i);
+      lb.hidden = false; isOpen = true;
+      if (lenis) lenis.stop();
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        lb.classList.add('is-open');
+        if (!reduce) frame.animate(flipFrom(medias[i].getBoundingClientRect(), frame.getBoundingClientRect()), { duration: 800, easing: 'cubic-bezier(.16,1,.3,1)' });
+        $('[data-lb-close].lb-btn').focus({ preventScroll: true });
+      });
+    }
+    function close() {
+      if (!isOpen) return; isOpen = false;
+      lb.classList.remove('is-open');
+      const done = () => { lb.hidden = true; document.body.style.overflow = ''; if (lenis) lenis.start(); if (lastFocus) lastFocus.focus({ preventScroll: true }); };
+      if (reduce) return done();
+      img.classList.remove('is-zoomed');
+      const k = flipFrom(medias[cur].getBoundingClientRect(), frame.getBoundingClientRect()).reverse();
+      const a = frame.animate(k, { duration: 560, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' });
+      a.onfinish = () => { done(); a.cancel(); };
+    }
+    function go(d) {
+      const n = (cur + d + CERTS.length) % CERTS.length;
+      const a = frame.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateX(${-d * 40}px)` }], { duration: 220, easing: 'ease-in' });
+      a.onfinish = () => { cur = n; fill(n); frame.animate([{ opacity: 0, transform: `translateX(${d * 40}px)` }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' }); };
+    }
+    $$('[data-open]').forEach(b => b.addEventListener('click', () => open(+b.dataset.open)));
+    $$('[data-lb-close]').forEach(b => b.addEventListener('click', close));
+    $('[data-lb-prev]').addEventListener('click', () => go(-1));
+    $('[data-lb-next]').addEventListener('click', () => go(1));
+    img.addEventListener('click', e => {
+      const r = img.getBoundingClientRect();
+      img.style.setProperty('--ox', ((e.clientX - r.left) / r.width * 100) + '%');
+      img.style.setProperty('--oy', ((e.clientY - r.top) / r.height * 100) + '%');
+      img.classList.toggle('is-zoomed');
+    });
+    img.addEventListener('pointermove', e => {
+      if (!img.classList.contains('is-zoomed')) return;
+      const r = frame.getBoundingClientRect();
+      img.style.setProperty('--ox', ((e.clientX - r.left) / r.width * 100) + '%');
+      img.style.setProperty('--oy', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+    document.addEventListener('keydown', e => {
+      if (!isOpen) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') go(1);
+      else if (e.key === 'ArrowLeft') go(-1);
+      else if (e.key === 'Tab') {
+        const f = $$('button, a[href]', lb).filter(x => x.offsetParent !== null);
+        const i = f.indexOf(document.activeElement);
+        if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+      }
+    });
+    return { open, close };
+  })();
+
+  /* ===================== copy helpers ===================== */
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch (e) {
+      try {
+        const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0'; document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy'); ta.remove(); return ok;
+      } catch (e2) { return false; }
+    }
+  }
+  $$('[data-copy-email]').forEach(b => b.addEventListener('click', async () => {
+    const ok = await copyText(CONFIG.email);
+    b.textContent = ok ? 'Copied' : 'Select and copy the address';
+    b.classList.toggle('is-done', ok);
+    setTimeout(() => { b.textContent = 'Copy address'; b.classList.remove('is-done'); }, 1800);
+  }));
+
+  /* ===================== contact form ===================== */
+  (() => {
+    const form = $('#contact-form'), status = $('#form-status'), btn = form.querySelector('button[type="submit"]'), btnLabel = btn.querySelector('.btn-inner');
+    const fields = { name: $('#cf-name'), email: $('#cf-email'), reason: $('#cf-reason') };
+    const rules = {
+      name: v => v.trim().length >= 2 ? '' : 'Enter your name.',
+      email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Enter an email address like name@example.com.',
+      reason: v => v.trim().length >= 10 ? '' : 'Tell me a little about why you’re reaching out (at least 10 characters).'
+    };
+    const check = key => {
+      const el = fields[key], msg = rules[key](el.value);
+      el.closest('.field').classList.toggle('is-invalid', !!msg);
+      el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      $('#' + el.id + '-err').textContent = msg;
+      return !msg;
+    };
+    Object.keys(fields).forEach(k => {
+      fields[k].addEventListener('blur', () => { if (fields[k].value) check(k); });
+      fields[k].addEventListener('input', () => { if (fields[k].closest('.field').classList.contains('is-invalid')) check(k); });
+    });
+    const tick = '<svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="12" fill="#2340E0"/><path d="M7.5 13.5l3.6 3.6 7.4-7.6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const ok = ['name', 'email', 'reason'].map(check).every(Boolean);
+      if (!ok) { const bad = Object.values(fields).find(f => f.getAttribute('aria-invalid') === 'true'); if (bad) bad.focus(); return; }
+      const data = {
+        name: fields.name.value.trim(),
+        email: fields.email.value.trim(),
+        topic: (form.querySelector('input[name="topic"]:checked') || {}).value || 'General',
+        reason: fields.reason.value.trim()
+      };
+      btn.disabled = true; btnLabel.textContent = 'Sending…'; status.className = 'form-status'; status.innerHTML = '';
+      let sent = false;
+      try {
+        const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 9000);
+        const res = await fetch(CONFIG.formEndpoint, {
+          method: 'POST', signal: ctrl.signal,
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ name: data.name, email: data.email, topic: data.topic, reason: data.reason, _subject: `Portfolio: ${data.topic} from ${data.name}`, _template: 'table', _captcha: 'false' })
+        });
+        clearTimeout(to);
+        const j = await res.json().catch(() => ({}));
+        sent = res.ok && (j.success === true || j.success === 'true');
+      } catch (err) { sent = false; }
+      btn.disabled = false; btnLabel.textContent = 'Send message';
+
+      if (sent) {
+        status.className = 'form-status is-ok';
+        status.innerHTML = `<div class="status-head">${tick}<span>Message sent</span></div><p>Thanks, ${esc(data.name.split(' ')[0])}. I’ll reply to ${esc(data.email)} soon.</p>`;
+        form.reset();
+      } else {
+        const subject = `Portfolio: ${data.topic} from ${data.name}`;
+        const body = `Name: ${data.name}\nEmail: ${data.email}\nTopic: ${data.topic}\n\n${data.reason}`;
+        const mailto = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        status.className = 'form-status';
+        status.innerHTML = `<div class="status-head"><span>Your message isn’t sent yet</span></div>
+          <p>This page couldn’t deliver it directly. Open it in your email app, or copy it and send it to <strong>${CONFIG.email}</strong>.</p>
+          <div class="status-actions"><a class="btn btn-solid btn-small" href="${mailto}"><span class="btn-inner">Open in email app</span></a><button class="btn btn-line btn-small" type="button" data-copy-msg><span class="btn-inner">Copy message</span></button></div>`;
+        status.querySelector('[data-copy-msg]').addEventListener('click', async ev => {
+          const okc = await copyText(`To: ${CONFIG.email}\nSubject: ${subject}\n\n${body}`);
+          ev.currentTarget.querySelector('.btn-inner').textContent = okc ? 'Copied' : 'Copy failed, select the text instead';
+        });
+      }
+    });
+  })();
+
+  /* ===================== music: "Afterglow", generated with Web Audio ===================== */
+  const Music = (() => {
+    let ctx = null, master, analyser, bus, revSend, dlySend, lfoGain, noiseBuf, timer = 0, fadeT = 0;
+    let playing = false, step = 0, next = 0, pattern = [], playStart = 0, accum = 0;
+    const BPM = 72, E = 60 / BPM / 2, SPC = 16;
+    const CH = [
+      { bass: 38, pad: [50, 54, 57, 61, 64], arp: [62, 66, 69, 73, 76, 74] }, // Dmaj9
+      { bass: 35, pad: [47, 54, 57, 62, 64], arp: [59, 62, 66, 69, 71, 74] }, // Bm11
+      { bass: 31, pad: [43, 50, 54, 59, 61], arp: [62, 66, 67, 71, 73, 74] }, // Gmaj7#11
+      { bass: 33, pad: [45, 52, 54, 59, 62], arp: [64, 66, 69, 71, 74, 76] }  // A6/9sus
+    ];
+    const TEMPLATES = [
+      [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+      [1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0],
+      [1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1]
+    ];
+    const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+    const subs = new Set();
+    const emit = () => subs.forEach(f => f(playing));
+
+    function impulse(sec, decay) {
+      const rate = ctx.sampleRate, len = Math.floor(rate * sec), buf = ctx.createBuffer(2, len, rate);
+      for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay); }
+      return buf;
+    }
+    function init() {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      ctx = new AC();
+      master = ctx.createGain(); master.gain.value = 0;
+      const comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -20; comp.knee.value = 18; comp.ratio.value = 3; comp.attack.value = 0.03; comp.release.value = 0.4;
+      analyser = ctx.createAnalyser(); analyser.fftSize = 512; analyser.smoothingTimeConstant = 0.84;
+      const tone = ctx.createBiquadFilter(); tone.type = 'lowpass'; tone.frequency.value = 6800; tone.Q.value = 0.4;
+      bus = ctx.createGain();
+      bus.connect(tone); tone.connect(master); master.connect(comp); comp.connect(analyser); analyser.connect(ctx.destination);
+      const rev = ctx.createConvolver(); rev.buffer = impulse(4.2, 2.8);
+      const revOut = ctx.createGain(); revOut.gain.value = 0.62; rev.connect(revOut); revOut.connect(tone);
+      revSend = ctx.createGain(); revSend.connect(rev);
+      const dly = ctx.createDelay(2); dly.delayTime.value = E * 3;
+      const fb = ctx.createGain(); fb.gain.value = 0.36;
+      const dlf = ctx.createBiquadFilter(); dlf.type = 'lowpass'; dlf.frequency.value = 2300;
+      dly.connect(dlf); dlf.connect(fb); fb.connect(dly);
+      const dlyOut = ctx.createGain(); dlyOut.gain.value = 0.42; dlf.connect(dlyOut); dlyOut.connect(bus); dlyOut.connect(revSend);
+      dlySend = ctx.createGain(); dlySend.connect(dly);
+      const lfo = ctx.createOscillator(); lfo.frequency.value = 0.07;
+      lfoGain = ctx.createGain(); lfoGain.gain.value = 260; lfo.connect(lfoGain); lfo.start();
+      noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+      const nd = noiseBuf.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+      const air = ctx.createBufferSource(); air.buffer = noiseBuf; air.loop = true;
+      const af = ctx.createBiquadFilter(); af.type = 'lowpass'; af.frequency.value = 700;
+      const ag = ctx.createGain(); ag.gain.value = 0.014;
+      air.connect(af); af.connect(ag); ag.connect(bus); air.start();
+      return true;
+    }
+    function pad(notes, t, dur) {
+      const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 980; f.Q.value = 0.6;
+      lfoGain.connect(f.frequency);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(1, t + 2.2);
+      g.gain.setValueAtTime(1, t + dur); g.gain.linearRampToValueAtTime(0, t + dur + 3.2);
+      f.connect(g); g.connect(bus);
+      const s = ctx.createGain(); s.gain.value = 0.85; g.connect(s); s.connect(revSend);
+      const end = t + dur + 3.4;
+      notes.forEach(m => [-7, 7].forEach(det => {
+        const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = mtof(m); o.detune.value = det + (Math.random() * 4 - 2);
+        const og = ctx.createGain(); og.gain.value = 0.03; o.connect(og); og.connect(f); o.start(t); o.stop(end);
+        o.onended = () => { try { lfoGain.disconnect(f); } catch (e) { /* already gone */ } };
+      }));
+    }
+    function bass(m, t, dur) {
+      const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = mtof(m);
+      const o2 = ctx.createOscillator(); o2.type = 'triangle'; o2.frequency.value = mtof(m + 12);
+      const g2 = ctx.createGain(); g2.gain.value = 0.16;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.22, t + 0.3);
+      g.gain.linearRampToValueAtTime(0.13, t + dur * 0.7); g.gain.linearRampToValueAtTime(0, t + dur + 0.4);
+      o.connect(g); o2.connect(g2); g2.connect(g); g.connect(bus);
+      o.start(t); o2.start(t); o.stop(t + dur + 0.5); o2.stop(t + dur + 0.5);
+    }
+    function pluck(m, t, vel) {
+      const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = mtof(m);
+      const o2 = ctx.createOscillator(); o2.type = 'sine'; o2.frequency.value = mtof(m + 12);
+      const g2 = ctx.createGain(); g2.gain.value = 0.22;
+      const f = ctx.createBiquadFilter(); f.type = 'lowpass';
+      f.frequency.setValueAtTime(3600, t); f.frequency.exponentialRampToValueAtTime(900, t + 0.9);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.1 * vel, t + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.7);
+      o.connect(f); o2.connect(g2); g2.connect(f); f.connect(g); g.connect(bus);
+      const sd = ctx.createGain(); sd.gain.value = 0.55; g.connect(sd); sd.connect(dlySend);
+      const sr = ctx.createGain(); sr.gain.value = 0.5; g.connect(sr); sr.connect(revSend);
+      o.start(t); o2.start(t); o.stop(t + 1.8); o2.stop(t + 1.8);
+    }
+    function kick(t) {
+      const o = ctx.createOscillator(); o.type = 'sine';
+      o.frequency.setValueAtTime(120, t); o.frequency.exponentialRampToValueAtTime(46, t + 0.14);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.4, t + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+      o.connect(g); g.connect(bus); o.start(t); o.stop(t + 0.6);
+    }
+    function noiseHit(t, freq, type, q, peak, len, rev) {
+      const src = ctx.createBufferSource(); src.buffer = noiseBuf;
+      const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+      src.connect(f); f.connect(g); g.connect(bus);
+      if (rev) { const r = ctx.createGain(); r.gain.value = rev; g.connect(r); r.connect(revSend); }
+      src.start(t, Math.random() * 1.5); src.stop(t + len + 0.05);
+    }
+    function newPattern(ch) {
+      const tmpl = TEMPLATES[(Math.random() * TEMPLATES.length) | 0];
+      let idx = (Math.random() * 3) | 0;
+      return tmpl.map(hit => {
+        if (!hit || Math.random() > 0.84) return 0;
+        idx = clamp(idx + [-1, 1, 1, 2, -2, 0][(Math.random() * 6) | 0], 0, ch.arp.length - 1);
+        return ch.arp[idx] + 12;
+      });
+    }
+    const phase = c => c < 2 ? 0 : c < 6 ? 1 : ((c - 6) % 12) < 8 ? 2 : 3; // intro, melody, full, breakdown
+    function schedule(s, t) {
+      const i = s % SPC, c = Math.floor(s / SPC), ch = CH[c % CH.length], ph = phase(c);
+      if (i === 0) { pad(ch.pad, t, SPC * E); if (ph === 1 || ph === 2) bass(ch.bass, t, SPC * E); pattern = newPattern(ch); }
+      if (ph >= 1 && pattern[i]) pluck(pattern[i], t, i === 0 ? 1 : 0.55 + Math.random() * 0.35);
+      if (ph === 2) {
+        const b = i % 8;
+        if (b === 0 || b === 5) kick(t);
+        if (b === 4) noiseHit(t, 1700, 'bandpass', 0.9, 0.08, 0.22, 0.8);
+        if (b % 2 === 1) noiseHit(t, 6800, 'highpass', 0.7, b === 3 || b === 7 ? 0.022 : 0.013, 0.07, 0);
+      }
+    }
+    function tick() { while (next < ctx.currentTime + 0.25) { schedule(step, next); next += E; step++; } }
+
+    function play() {
+      if (!ctx && !init()) return false;
+      ctx.resume();
+      clearTimeout(fadeT);
+      if (!timer) { step = Math.ceil(step / SPC) * SPC; next = ctx.currentTime + 0.08; tick(); timer = setInterval(tick, 40); }
+      const now = ctx.currentTime;
+      master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now); master.gain.linearRampToValueAtTime(0.85, now + 2.5);
+      if (!playing) playStart = performance.now();
+      playing = true; emit(); return true;
+    }
+    function pause() {
+      if (!ctx || !playing) return;
+      playing = false; accum += performance.now() - playStart;
+      const now = ctx.currentTime;
+      master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now); master.gain.linearRampToValueAtTime(0, now + 1.2);
+      fadeT = setTimeout(() => { clearInterval(timer); timer = 0; ctx.suspend(); }, 1300);
+      emit();
+    }
+    return {
+      toggle() { if (playing) { pause(); return false; } return play(); },
+      isPlaying: () => playing,
+      elapsed: () => accum + (playing ? performance.now() - playStart : 0),
+      analyser: () => analyser,
+      on(f) { subs.add(f); }
+    };
+  })();
+
+  /* music UI: nav toggle, outro button, visualizer */
+  (() => {
+    const toggles = $$('[data-music-toggle]'), navLabel = $('.sound-label'), bars = $$('.bars i');
+    const playBtn = $('.play'), timeEl = $('.track-time'), cvs = $('.viz'), vctx = cvs.getContext('2d');
+    toggles.forEach(b => b.addEventListener('click', () => Music.toggle()));
+    Music.on(p => {
+      toggles.forEach(b => b.setAttribute('aria-pressed', String(p)));
+      navLabel.textContent = p ? 'Pause music' : 'Play music';
+      $('.sound').setAttribute('aria-label', p ? 'Pause music' : 'Play music');
+      playBtn.setAttribute('aria-label', p ? 'Pause Afterglow' : 'Play Afterglow');
+      if (cursorEl.classList.contains('is-label') && document.querySelector('.play:hover')) Cursor.refreshLabel && Cursor.refreshLabel(p ? 'Pause' : 'Play');
+      kick();
+    });
+    let visible = false, raf = 0, freq = null;
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; kick(); }).observe($('.player'));
+    function kick() { if (!raf) raf = requestAnimationFrame(draw); }
+    function size() {
+      const r = cvs.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+      if (cvs.width !== Math.round(r.width * d)) { cvs.width = Math.round(r.width * d); cvs.height = Math.round(r.height * d); }
+      vctx.setTransform(d, 0, 0, d, 0, 0); return r.width;
+    }
+    function fmtTime(ms) { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+    function draw(now) {
+      raf = 0;
+      const an = Music.analyser(), playing = Music.isPlaying();
+      let level = 0;
+      if (an) { if (!freq) freq = new Uint8Array(an.frequencyBinCount); an.getByteFrequencyData(freq); }
+      if (freq) { let s = 0; for (let i = 2; i < 60; i++) s += freq[i]; level = s / (58 * 255); }
+      bars.forEach((b, i) => {
+        const v = an && freq ? freq[4 + i * 9] / 255 : 0;
+        const idle = 0.25;
+        b.style.transform = `scaleY(${(playing || v > 0.02 ? clamp(0.2 + v * 1.1 + Math.sin(now * 0.006 + i) * 0.05, 0.15, 1) : idle).toFixed(3)})`;
+      });
+      timeEl.textContent = fmtTime(Music.elapsed());
+      if (visible) {
+        const w = size(), h = w, cx = w / 2, cy = h / 2, R = w * 0.25;
+        vctx.clearRect(0, 0, w, h);
+        vctx.lineCap = 'round';
+        // orbit rings
+        vctx.strokeStyle = 'rgba(157,176,255,.16)'; vctx.lineWidth = 1;
+        [1.32, 1.72].forEach((m, k) => { vctx.beginPath(); vctx.arc(cx, cy, R * m + level * 10 * (k + 1), 0, Math.PI * 2); vctx.stroke(); });
+        // orbiting dot
+        const oa = now * 0.0004;
+        vctx.fillStyle = '#9DB0FF'; vctx.beginPath(); vctx.arc(cx + Math.cos(oa) * R * 1.72, cy + Math.sin(oa) * R * 1.72, 3, 0, Math.PI * 2); vctx.fill();
+        // radial bars, mirrored
+        const N = 72;
+        vctx.lineWidth = Math.max(2, w / 150);
+        for (let i = 0; i < N; i++) {
+          const half = i < N / 2 ? i : N - 1 - i;
+          let v;
+          if (freq && an) { const bin = Math.floor(2 + Math.pow(half / (N / 2), 1.6) * 110); v = freq[bin] / 255; }
+          else v = 0;
+          const idle = 0.05 + 0.035 * Math.sin(now * 0.0018 + i * 0.45);
+          const amp = Math.max(idle, v);
+          const ang = (i / N) * Math.PI * 2 - Math.PI / 2;
+          const r0 = R * 1.08, r1 = r0 + 6 + amp * w * 0.17;
+          vctx.strokeStyle = `rgba(245,163,0,${(0.35 + amp * 0.65).toFixed(3)})`;
+          vctx.beginPath(); vctx.moveTo(cx + Math.cos(ang) * r0, cy + Math.sin(ang) * r0); vctx.lineTo(cx + Math.cos(ang) * r1, cy + Math.sin(ang) * r1); vctx.stroke();
+        }
+      }
+      if (visible || playing || (freq && level > 0.01)) raf = requestAnimationFrame(draw);
+    }
+    kick();
+  })();
+
+  /* ===================== boot sequence ===================== */
+  const loader = $('.loader'), loaderBar = $('.loader-bar span');
+  const minTime = reduce ? 0 : 1250;
+  const t0 = performance.now();
+  if (!reduce) {
+    const bar = now => { const p = clamp((now - t0) / minTime, 0, 1); loaderBar.style.transform = `scaleX(${easeOut(p).toFixed(3)})`; if (p < 1) requestAnimationFrame(bar); };
+    requestAnimationFrame(bar);
+  }
+  const fontsReady = document.fonts
+    ? Promise.race([Promise.all([document.fonts.load('800 100px "Archivo"'), document.fonts.ready]), wait(2800)]).catch(() => {})
+    : Promise.resolve();
+  if (lenis) lenis.stop();
+  Promise.all([fontsReady, wait(minTime)]).then(() => {
+    window.__svReady = true;
+    loader.classList.add('done');
+    setTimeout(() => loader.remove(), 1200);
+    root.classList.add('ready');
+    $('.hero-h1').style.setProperty('--d', '350ms');
+    setTimeout(() => $('.hero-h1').classList.add('in'), 30);
+    Hero.start();
+    if (lenis) lenis.start();
+    if (hasG) { ST.refresh(); setTimeout(() => ST.refresh(), 600); }
+  });
+  addEventListener('load', () => { if (hasG) ST.refresh(); });
+})();
+</script>
+</body>
+</html>
