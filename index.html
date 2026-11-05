@@ -368,7 +368,7 @@ main { overflow-x: clip; }
 .term-hints button:hover { background: var(--saffron); color: var(--night); }
 
 /* certificates */
-.cert-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 56px); perspective: 1600px; }
+.cert-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 56px); perspective: 1600px; }
 .cert { display: grid; gap: 26px; align-content: start; transform-style: preserve-3d; }
 .cert-media {
   position: relative; display: block; width: 100%; border-radius: 18px; overflow: hidden; background: #fff;
@@ -382,7 +382,8 @@ main { overflow-x: clip; }
 .cert-media.is-tilting .glare { opacity: 1; }
 .cert-series { font-size: .875rem; color: var(--muted); }
 .cert-info h3 { margin-top: 4px; font-family: var(--display); font-size: clamp(1.35rem, 2vw, 1.8rem); line-height: 1.15; letter-spacing: -.015em; font-variation-settings: "wdth" 108, "wght" 650; text-wrap: balance; }
-.cert-info dl { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 4px 28px; margin-top: 16px; }
+.cert-info dl { display: grid; grid-template-columns: repeat(2, auto); justify-content: start; gap: 8px 28px; margin-top: 16px; }
+@media (max-width: 1100px) and (min-width: 641px) { .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .cert-info dt { font-size: .75rem; color: var(--muted); }
 .cert-info dd { font-size: .9375rem; font-weight: 500; font-variant-numeric: tabular-nums; }
 .cert-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 20px; }
@@ -703,8 +704,8 @@ $ git push origin main</code></pre>
         <ul class="skills">
           <li class="skill" data-reveal>
             <div class="skill-top"><h3>Python</h3><span class="skill-level">Comfortable with the fundamentals</span></div>
-            <p>Variables, conditionals, loops, functions, strings and files, plus lists, dictionaries and tuples from the University of Michigan’s Python Data Structures course.</p>
-            <ul class="tags"><li>functions</li><li>loops</li><li>strings</li><li>files</li><li>lists</li><li>dictionaries</li><li>tuples</li></ul>
+            <p>Variables, conditionals, loops, functions, strings and files, then lists, dictionaries and tuples, and pulling data from the web: HTTP requests, parsing HTML, XML and JSON, and calling APIs. Three University of Michigan courses so far.</p>
+            <ul class="tags"><li>functions</li><li>loops</li><li>files</li><li>lists &amp; dictionaries</li><li>regex</li><li>web scraping</li><li>JSON &amp; APIs</li></ul>
           </li>
           <li class="skill" data-reveal style="--d:60ms">
             <div class="skill-top"><h3>Git &amp; GitHub</h3><span class="skill-level">Used on every project</span></div>
@@ -748,7 +749,7 @@ $ git push origin main</code></pre>
     <div class="wrap">
       <div class="sec-head">
         <h2 class="title">Certificates</h2>
-        <p class="sec-note" data-reveal>The first two courses of the University of Michigan’s Python for Everybody series, taught by Dr. Charles Severance and offered through Coursera. Open one to see it full size.</p>
+        <p class="sec-note" data-reveal>Three courses from the University of Michigan’s Python for Everybody series, taught by Dr. Charles Severance and offered through Coursera. Open one to see it full size.</p>
       </div>
       <div class="cert-grid">
         <article class="cert">
@@ -786,6 +787,25 @@ $ git push origin main</code></pre>
             <div class="cert-actions">
               <button class="btn btn-line btn-small" type="button" data-open="1"><span class="btn-inner">View full size</span></button>
               <a class="text-link" href="https://coursera.org/verify/ZG718HIUANK4" target="_blank" rel="noopener">Verify on Coursera</a>
+            </div>
+          </div>
+        </article>
+        <article class="cert">
+          <button class="cert-media" type="button" data-open="2" data-cursor="View" aria-label="View the Using Python to Access Web Data certificate full size">
+            <img src="assets/cert-using-python-to-access-web-data.webp" width="1609" height="1234" alt="Coursera course certificate: Swastik Verma has completed Using Python to Access Web Data, an online course authorized by the University of Michigan, 8 July 2026." loading="lazy" decoding="async">
+            <span class="glare"></span>
+          </button>
+          <div class="cert-info" data-reveal style="--d:160ms">
+            <p class="cert-series">Python for Everybody, course 3</p>
+            <h3>Using Python to Access Web Data</h3>
+            <dl>
+              <div><dt>Issued by</dt><dd>University of Michigan</dd></div>
+              <div><dt>Completed</dt><dd>8 Jul 2026</dd></div>
+              <div><dt>Credential ID</dt><dd>PT9PH1AKIO82</dd></div>
+            </dl>
+            <div class="cert-actions">
+              <button class="btn btn-line btn-small" type="button" data-open="2"><span class="btn-inner">View full size</span></button>
+              <a class="text-link" href="https://coursera.org/verify/PT9PH1AKIO82" target="_blank" rel="noopener">Verify on Coursera</a>
             </div>
           </div>
         </article>
@@ -1381,7 +1401,7 @@ $ git push origin main</code></pre>
     });
     // certificates swing flat as they rise
     $$('.cert').forEach((c, i) => {
-      G.fromTo(c, { rotateX: 18, rotateY: i % 2 ? -12 : 12, y: 90, transformPerspective: 1300 }, {
+      G.fromTo(c, { rotateX: 18, rotateY: [12, 0, -12][i % 3], y: 90, transformPerspective: 1300 }, {
         rotateX: 0, rotateY: 0, y: 0, ease: 'none',
         scrollTrigger: { trigger: c, start: 'top 100%', end: 'top 50%', scrub: 0.8 }
       });
@@ -1458,7 +1478,7 @@ $ git push origin main</code></pre>
         "I like problems that don't have an obvious first step."
       ]),
       skills: () => lines([
-        '<span class="t-acc">python</span>           comfortable with the fundamentals and data structures',
+        '<span class="t-acc">python</span>           fundamentals, data structures and web data (HTTP, JSON, APIs)',
         '<span class="t-acc">git, github</span>      every project is versioned',
         '<span class="t-acc">terminal</span>         my daily workspace',
         '<span class="t-acc">problem solving</span>  the part I enjoy most'
@@ -1472,12 +1492,15 @@ $ git push origin main</code></pre>
         '<span class="t-ok">programming-for-everybody.pdf</span>  University of Michigan, 30 Jun 2026',
         '  verify: ' + link('https://coursera.org/verify/T0GTQJAXCGVL', 'coursera.org/verify/T0GTQJAXCGVL'),
         '<span class="t-ok">python-data-structures.pdf</span>     University of Michigan, 3 Jul 2026',
-        '  verify: ' + link('https://coursera.org/verify/ZG718HIUANK4', 'coursera.org/verify/ZG718HIUANK4')
+        '  verify: ' + link('https://coursera.org/verify/ZG718HIUANK4', 'coursera.org/verify/ZG718HIUANK4'),
+        '<span class="t-ok">using-python-to-access-web-data.pdf</span>  University of Michigan, 8 Jul 2026',
+        '  verify: ' + link('https://coursera.org/verify/PT9PH1AKIO82', 'coursera.org/verify/PT9PH1AKIO82')
       ]),
       'git log': () => {
         const log = [
           ['practise data structures and algorithms', '(HEAD -&gt; main)'],
           ['start B.Tech CS &amp; AI at Rishihood University × NST', ''],
+          ['complete Using Python to Access Web Data, University of Michigan (8 Jul 2026)', ''],
           ['complete Python Data Structures, University of Michigan (3 Jul 2026)', ''],
           ['complete Programming for Everybody, University of Michigan (30 Jun 2026)', ''],
           ['init: curiosity', '']
@@ -1570,7 +1593,8 @@ $ git push origin main</code></pre>
   /* ===================== certificates: tilt + lightbox ===================== */
   const CERTS = [
     { src: 'assets/cert-programming-for-everybody.webp', title: 'Programming for Everybody (Getting Started with Python)', meta: 'University of Michigan via Coursera, completed 30 Jun 2026', verify: 'https://coursera.org/verify/T0GTQJAXCGVL', alt: $$('.cert-media img')[0].alt },
-    { src: 'assets/cert-python-data-structures.webp', title: 'Python Data Structures', meta: 'University of Michigan via Coursera, completed 3 Jul 2026', verify: 'https://coursera.org/verify/ZG718HIUANK4', alt: $$('.cert-media img')[1].alt }
+    { src: 'assets/cert-python-data-structures.webp', title: 'Python Data Structures', meta: 'University of Michigan via Coursera, completed 3 Jul 2026', verify: 'https://coursera.org/verify/ZG718HIUANK4', alt: $$('.cert-media img')[1].alt },
+    { src: 'assets/cert-using-python-to-access-web-data.webp', title: 'Using Python to Access Web Data', meta: 'University of Michigan via Coursera, completed 8 Jul 2026', verify: 'https://coursera.org/verify/PT9PH1AKIO82', alt: $$('.cert-media img')[2].alt }
   ];
   const medias = $$('.cert-media');
   if (finePointer && !reduce) {
