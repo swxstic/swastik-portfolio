@@ -13,7 +13,7 @@ Personal portfolio of Swastik Verma, first-year B.Tech student in Computer Scien
 - Smooth scrolling and scroll-driven animations (GSAP ScrollTrigger + Lenis)
 - A working terminal you can type commands into
 - 3D certificate cards with a full-size viewer and Coursera verify links
-- Contact form (delivered by FormSubmit; the first message sends a one-time activation email)
+- Contact form delivered by Web3Forms, with FormSubmit as a backup and an email-app fallback
 - "Afterglow", an ambient music track generated live with the Web Audio API
 
 ## Run locally

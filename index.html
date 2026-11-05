@@ -954,6 +954,7 @@ $ git push origin main</code></pre>
           <label for="cf-reason">Your reason for reaching out</label>
           <span class="err" id="cf-reason-err"></span>
         </div>
+        <input type="checkbox" name="botcheck" id="cf-botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="form-foot">
           <button class="btn btn-solid" type="submit" data-magnetic><span class="btn-inner">Send message</span></button>
           <p class="form-note">Your email is only used to reply to you.</p>
@@ -1014,8 +1015,9 @@ $ git push origin main</code></pre>
   /* ===================== config ===================== */
   const CONFIG = {
     email: 'swastikverma46@gmail.com',
-    // FormSubmit forwards contact-form messages to the address above once the site is hosted
-    // on its own domain (the first message triggers a one-time activation email).
+    // Web3Forms delivers contact-form messages to the inbox above. Its access key is meant to be public.
+    web3formsKey: 'f392a7b3-2568-4ad0-be5e-7027c2194a23',
+    // Backup service, tried only if Web3Forms fails.
     formEndpoint: 'https://formsubmit.co/ajax/swastikverma46@gmail.com'
   };
 
@@ -1876,18 +1878,26 @@ $ git push origin main</code></pre>
         reason: fields.reason.value.trim()
       };
       btn.disabled = true; btnLabel.textContent = 'Sending…'; status.className = 'form-status'; status.innerHTML = '';
-      let sent = false;
-      try {
+      const subjectLine = `Portfolio: ${data.topic} from ${data.name}`;
+      const post = async (url, payload) => {
         const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 9000);
-        const res = await fetch(CONFIG.formEndpoint, {
-          method: 'POST', signal: ctrl.signal,
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ name: data.name, email: data.email, topic: data.topic, reason: data.reason, _subject: `Portfolio: ${data.topic} from ${data.name}`, _template: 'table', _captcha: 'false' })
+        try {
+          const res = await fetch(url, { method: 'POST', signal: ctrl.signal, headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
+          const j = await res.json().catch(() => ({}));
+          return res.ok && (j.success === true || j.success === 'true');
+        } catch (err) { return false; } finally { clearTimeout(to); }
+      };
+      let sent = false;
+      if (form.querySelector('[name="botcheck"]').checked) sent = true; // spam bots fill the hidden box
+      if (!sent && CONFIG.web3formsKey && !CONFIG.web3formsKey.includes('ACCESS_KEY')) {
+        sent = await post('https://api.web3forms.com/submit', {
+          access_key: CONFIG.web3formsKey, subject: subjectLine, from_name: 'Swastik Verma portfolio',
+          name: data.name, email: data.email, replyto: data.email, topic: data.topic, message: data.reason
         });
-        clearTimeout(to);
-        const j = await res.json().catch(() => ({}));
-        sent = res.ok && (j.success === true || j.success === 'true');
-      } catch (err) { sent = false; }
+      }
+      if (!sent) {
+        sent = await post(CONFIG.formEndpoint, { name: data.name, email: data.email, topic: data.topic, reason: data.reason, _subject: subjectLine, _template: 'table', _captcha: 'false' });
+      }
       btn.disabled = false; btnLabel.textContent = 'Send message';
 
       if (sent) {
