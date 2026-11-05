@@ -414,6 +414,14 @@ main { overflow-x: clip; }
 .direct-label { font-size: .875rem; color: var(--muted); }
 .direct-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
 .direct-row a { font-family: var(--display); font-size: clamp(1.1rem, 1.7vw, 1.45rem); font-variation-settings: "wdth" 108, "wght" 620; text-decoration: none; word-break: break-all; }
+.social-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.social-link { display: grid; gap: 2px; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 16px; text-decoration: none; transition: border-color .35s, background-color .35s, color .35s, transform .5s var(--ease); }
+.social-link:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); transform: translateY(-2px); }
+.social-name { font-family: var(--display); font-size: 1.125rem; font-variation-settings: "wdth" 112, "wght" 650; }
+.social-handle { font-size: .8125rem; color: var(--muted); transition: color .35s; }
+.social-link:hover .social-handle { color: var(--rule); }
+.foot-links { display: inline-flex; flex-wrap: wrap; gap: 8px 22px; }
+.menu-foot a { color: var(--ink); }
 .copy-btn { height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--rule); font-size: .8125rem; transition: background-color .3s, border-color .3s, color .3s; }
 .copy-btn:hover { border-color: var(--ink); }
 .copy-btn.is-done { background: var(--ink); color: var(--paper); border-color: var(--ink); }
@@ -565,7 +573,7 @@ main { overflow-x: clip; }
   <a href="#toolkit" style="--i:2">Toolkit</a>
   <a href="#certificates" style="--i:3">Certificates</a>
   <a href="#contact" style="--i:4">Contact</a>
-  <p class="menu-foot">swastikverma46@gmail.com</p>
+  <p class="menu-foot">swastikverma46@gmail.com<br><a href="https://www.linkedin.com/in/swastik-verma-70226a2b4/" target="_blank" rel="noopener">LinkedIn</a> &nbsp; <a href="https://github.com/swxstic" target="_blank" rel="noopener">GitHub</a></p>
 </div>
 
 <main>
@@ -796,6 +804,10 @@ $ git push origin main</code></pre>
             <a class="email-link" href="mailto:swastikverma46@gmail.com">swastikverma46@gmail.com</a>
             <button class="copy-btn" type="button" data-copy-email>Copy address</button>
           </div>
+          <div class="social-row">
+            <a class="social-link" href="https://www.linkedin.com/in/swastik-verma-70226a2b4/" target="_blank" rel="noopener"><span class="social-name">LinkedIn</span><span class="social-handle">swastik-verma</span></a>
+            <a class="social-link" href="https://github.com/swxstic" target="_blank" rel="noopener"><span class="social-name">GitHub</span><span class="social-handle">swxstic</span></a>
+          </div>
         </div>
       </div>
 
@@ -856,7 +868,7 @@ $ git push origin main</code></pre>
       <div class="foot">
         <span>© 2026 Swastik Verma</span>
         <span>B.Tech CS &amp; AI, Rishihood University × Newton School of Technology</span>
-        <a href="#top" class="text-link">Back to top</a>
+        <span class="foot-links"><a href="https://www.linkedin.com/in/swastik-verma-70226a2b4/" class="text-link" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/swxstic" class="text-link" target="_blank" rel="noopener">GitHub</a><a href="#top" class="text-link">Back to top</a></span>
       </div>
     </footer>
   </section>
@@ -1435,6 +1447,7 @@ $ git push origin main</code></pre>
         '  <span class="t-acc">ls</span>, <span class="t-acc">cat about.txt</span>  look around the files',
         '  <span class="t-acc">python hello.py</span>  run a tiny Python program',
         '  <span class="t-acc">contact</span>          jump to the contact form',
+        '  <span class="t-acc">linkedin</span>, <span class="t-acc">github</span> my profiles',
         '  <span class="t-acc">music</span>            play or pause the outro music',
         '  <span class="t-acc">clear</span>            clear the screen'
       ]),
@@ -1492,6 +1505,8 @@ $ git push origin main</code></pre>
       music: () => { const on = Music.toggle(); line(on ? 'Playing <span class="t-acc">Afterglow</span>. Type music again to pause.' : 'Music paused.'); },
       pwd: () => line('/home/swastik/portfolio'),
       date: () => line(new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'short', timeZone: 'Asia/Kolkata' }).format(new Date()) + ' IST'),
+      linkedin: () => line('LinkedIn: ' + link('https://www.linkedin.com/in/swastik-verma-70226a2b4/', 'linkedin.com/in/swastik-verma-70226a2b4')),
+      github: () => line('GitHub: ' + link('https://github.com/swxstic', 'github.com/swxstic')),
       clear: () => { out.innerHTML = ''; },
       exit: () => line("There's no exit here. Scroll down, the outro has music."),
       hello: () => line('Hey! Type <span class="t-acc">help</span> to look around.'),
