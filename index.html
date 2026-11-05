@@ -388,6 +388,54 @@ main { overflow-x: clip; }
 .cert-info dd { font-size: .9375rem; font-weight: 500; font-variant-numeric: tabular-nums; }
 .cert-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 20px; }
 
+
+/* linkedin profile card */
+.profile-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: start; perspective: 1600px; }
+.pcard {
+  position: relative; border-radius: 28px; overflow: hidden; background: #fff;
+  box-shadow: 0 50px 90px -50px rgba(12, 18, 48, .55), 0 0 0 1px rgba(26, 28, 34, .06);
+  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .8s var(--ease);
+}
+.pcard.is-tilting { transition: transform .15s linear; }
+.pcard-cover {
+  height: clamp(120px, 14vw, 170px);
+  background-color: var(--night);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cpath d='M6 20 L13 9' stroke='%232340E0' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M18 26 L24 17' stroke='%237D90F0' stroke-width='1.6' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cpath d='M30 60 L37 49' stroke='%23F5A300' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  animation: drift 40s linear infinite;
+}
+@keyframes drift { to { background-position: 0 -280px, 0 -540px; } }
+.pcard-body { position: relative; display: flow-root; padding: 0 clamp(22px, 3vw, 36px) clamp(26px, 3vw, 36px); }
+.pcard-avatar {
+  position: relative; width: clamp(108px, 11vw, 140px); aspect-ratio: 1; margin-top: calc(clamp(108px, 11vw, 140px) / -2);
+  border-radius: 50%; border: 5px solid #fff; background: var(--cobalt); color: var(--paper);
+  display: grid; place-items: center; overflow: hidden; box-shadow: 0 14px 30px -14px rgba(12, 18, 48, .5);
+}
+.pcard-initials { font-family: var(--display); font-size: clamp(2.2rem, 3vw, 2.8rem); font-variation-settings: "wdth" 125, "wght" 780; letter-spacing: -.02em; }
+.pcard-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pcard-open { position: absolute; top: 16px; right: clamp(22px, 3vw, 36px); padding: 6px 12px; border-radius: 999px; background: rgba(35, 64, 224, .08); color: var(--cobalt); font-size: .8125rem; font-weight: 600; }
+.pcard-name { margin-top: 16px; font-family: var(--display); font-size: clamp(1.7rem, 2.6vw, 2.3rem); line-height: 1.05; letter-spacing: -.02em; font-variation-settings: "wdth" 118, "wght" 720; }
+.pcard-headline { margin-top: 10px; color: var(--ink); max-width: 46ch; line-height: 1.5; }
+.pcard-meta { margin-top: 8px; font-size: .9375rem; color: var(--muted); }
+.pcard-stats { display: flex; flex-wrap: wrap; gap: 0; margin-top: 22px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.pstat { flex: 1 1 0; min-width: 110px; padding: 14px 16px 14px 0; display: grid; gap: 2px; }
+.pstat[hidden] { display: none; }
+.pstat:not([hidden]) ~ .pstat:not([hidden]) { padding-left: 16px; border-left: 1px solid var(--rule); }
+.pstat dt { font-size: .8125rem; color: var(--muted); }
+.pstat dd { font-family: var(--display); font-size: 1.75rem; line-height: 1.1; font-variation-settings: "wdth" 115, "wght" 700; font-variant-numeric: tabular-nums; }
+.pcard-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.pside { display: grid; gap: 14px; }
+.pblock { padding: 22px 24px; border-radius: 22px; background: var(--paper-deep); display: grid; gap: 14px; }
+.pblock h4 { font-family: var(--display); font-size: 1.125rem; font-variation-settings: "wdth" 112, "wght" 680; }
+.pitem { display: grid; gap: 2px; padding-left: 14px; border-left: 2px solid var(--cobalt); }
+.pitem strong { font-weight: 600; }
+.pdim { color: var(--muted); font-size: .9375rem; }
+.pblock .tags li { background: #fff; }
+@media (max-width: 960px) { .profile-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .pcard-open { position: static; display: inline-block; margin-top: 14px; } .pstat:not([hidden]) ~ .pstat:not([hidden]) { padding-left: 12px; } .pstat { min-width: 96px; } }
+
 /* lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 85; display: grid; place-items: center; padding: clamp(64px, 8vh, 96px) clamp(16px, 4vw, 56px) clamp(24px, 4vh, 48px); }
 .lightbox[hidden] { display: none; }
@@ -556,6 +604,7 @@ main { overflow-x: clip; }
       <a href="#method" data-scramble>Method</a>
       <a href="#toolkit" data-scramble>Toolkit</a>
       <a href="#certificates" data-scramble>Certificates</a>
+      <a href="#linkedin" data-scramble>LinkedIn</a>
       <a href="#contact" data-scramble>Contact</a>
     </nav>
     <div class="nav-right">
@@ -573,7 +622,8 @@ main { overflow-x: clip; }
   <a href="#method" style="--i:1">Method</a>
   <a href="#toolkit" style="--i:2">Toolkit</a>
   <a href="#certificates" style="--i:3">Certificates</a>
-  <a href="#contact" style="--i:4">Contact</a>
+  <a href="#linkedin" style="--i:4">LinkedIn</a>
+  <a href="#contact" style="--i:5">Contact</a>
   <p class="menu-foot">swastikverma46@gmail.com<br><a href="https://www.linkedin.com/in/swastik-verma-70226a2b4/" target="_blank" rel="noopener">LinkedIn</a> &nbsp; <a href="https://github.com/swxstic" target="_blank" rel="noopener">GitHub</a></p>
 </div>
 
@@ -813,6 +863,53 @@ $ git push origin main</code></pre>
     </div>
   </section>
 
+  <section class="section profile" id="linkedin">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="title">LinkedIn</h2>
+        <p class="sec-note" data-reveal>My professional profile at a glance. Connect with me there to follow what I build next.</p>
+      </div>
+      <div class="profile-grid">
+        <article class="pcard" aria-label="Swastik Verma's LinkedIn profile summary">
+          <div class="pcard-cover" aria-hidden="true"></div>
+          <div class="pcard-body">
+            <div class="pcard-avatar" aria-hidden="true"><span class="pcard-initials">SV</span><img class="pcard-photo" alt="" hidden></div>
+            <div class="pcard-open">Open to internships &amp; hackathons</div>
+            <h3 class="pcard-name">Swastik Verma</h3>
+            <p class="pcard-headline">B.Tech CS &amp; AI student at Rishihood University × Newton School of Technology. Python, Git &amp; GitHub, the terminal, and problems with no obvious first step.</p>
+            <p class="pcard-meta">Rishihood University</p>
+            <dl class="pcard-stats">
+              <div class="pstat" data-stat="connections" hidden><dt>Connections</dt><dd data-count="0">0</dd></div>
+              <div class="pstat" data-stat="followers" hidden><dt>Followers</dt><dd data-count="0">0</dd></div>
+              <div class="pstat"><dt>Certifications</dt><dd data-count="3">3</dd></div>
+              <div class="pstat"><dt>Year of B.Tech</dt><dd>1st</dd></div>
+            </dl>
+            <div class="pcard-actions">
+              <a class="btn btn-solid" href="https://www.linkedin.com/in/swastik-verma-70226a2b4/" target="_blank" rel="noopener" data-magnetic><span class="btn-inner">View my LinkedIn</span></a>
+              <a class="btn btn-line" href="https://www.linkedin.com/in/swastik-verma-70226a2b4/" target="_blank" rel="noopener"><span class="btn-inner">Connect with me</span></a>
+            </div>
+          </div>
+        </article>
+        <div class="pside">
+          <div class="pblock" data-pslide>
+            <h4>Education</h4>
+            <div class="pitem"><strong>Rishihood University</strong><span>B.Tech, Computer Science &amp; Artificial Intelligence</span><span class="pdim">With Newton School of Technology, 2026 to 2030</span></div>
+          </div>
+          <div class="pblock" data-pslide>
+            <h4>Licenses &amp; certifications</h4>
+            <div class="pitem"><strong>Programming for Everybody</strong><span class="pdim">University of Michigan, Jun 2026</span></div>
+            <div class="pitem"><strong>Python Data Structures</strong><span class="pdim">University of Michigan, Jul 2026</span></div>
+            <div class="pitem"><strong>Using Python to Access Web Data</strong><span class="pdim">University of Michigan, Jul 2026</span></div>
+          </div>
+          <div class="pblock" data-pslide>
+            <h4>Top skills</h4>
+            <ul class="tags"><li>Python</li><li>Problem solving</li><li>Git</li><li>GitHub</li><li>Linux command line</li><li>Web data &amp; APIs</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section contact" id="contact">
     <div class="wrap contact-grid">
       <div class="contact-intro">
@@ -1016,7 +1113,7 @@ $ git push origin main</code></pre>
       if (a && !e.isIntersecting && a.classList.contains('is-active') && e.boundingClientRect.top > 0) a.classList.remove('is-active');
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
-  ['about', 'method', 'toolkit', 'certificates', 'contact'].forEach(id => { const s = document.getElementById(id); if (s) secIO.observe(s); });
+  ['about', 'method', 'toolkit', 'certificates', 'linkedin', 'contact'].forEach(id => { const s = document.getElementById(id); if (s) secIO.observe(s); });
 
   /* in-page links */
   document.addEventListener('click', e => {
@@ -1681,6 +1778,51 @@ $ git push origin main</code></pre>
       }
     });
     return { open, close };
+  })();
+
+
+  /* ===================== linkedin profile card ===================== */
+  (() => {
+    const LINKEDIN = {
+      photo: '',        // e.g. 'assets/swastik.jpg'
+      connections: 0,   // shown when above 0
+      followers: 0      // shown when above 0
+    };
+    const card = $('.pcard'); if (!card) return;
+    if (LINKEDIN.photo) { const img = $('.pcard-photo'); img.src = LINKEDIN.photo; img.alt = 'Swastik Verma'; img.hidden = false; $('.pcard-initials').hidden = true; }
+    [['connections', LINKEDIN.connections], ['followers', LINKEDIN.followers]].forEach(([k, v]) => {
+      if (v > 0) { const st = $(`[data-stat="${k}"]`); st.hidden = false; const dd = st.querySelector('dd'); dd.dataset.count = v; dd.textContent = v >= 500 && k === 'connections' ? '500+' : v; dd.dataset.suffix = v >= 500 && k === 'connections' ? '+' : ''; if (v >= 500 && k === 'connections') dd.dataset.count = 500; }
+    });
+    // numbers count up when the card arrives
+    const nums = $$('.pcard-stats dd[data-count]');
+    const countIO = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; countIO.unobserve(e.target);
+      const el = e.target, end = +el.dataset.count, suf = el.dataset.suffix || '';
+      if (reduce || !end) { el.textContent = end + suf; return; }
+      const t0 = performance.now(), dur = 1400;
+      const step = now => { const p = clamp((now - t0) / dur, 0, 1); el.textContent = Math.round(easeOut(p) * end) + (p === 1 ? suf : ''); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }), { threshold: 0.6 });
+    nums.forEach(n => countIO.observe(n));
+    // tilt with the cursor
+    if (finePointer && !reduce) {
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--ry', ((px - 0.5) * 8).toFixed(2) + 'deg'); card.style.setProperty('--rx', ((0.5 - py) * 6).toFixed(2) + 'deg'); card.classList.add('is-tilting');
+      });
+      card.addEventListener('pointerleave', () => { card.classList.remove('is-tilting'); card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+    }
+    // slide in on scroll
+    if (hasG && !reduce) {
+      G.fromTo(card, { xPercent: -14, rotateY: 16, opacity: 0.35, transformPerspective: 1400 }, {
+        xPercent: 0, rotateY: 0, opacity: 1, ease: 'none',
+        scrollTrigger: { trigger: '.profile-grid', start: 'top 95%', end: 'top 40%', scrub: 0.8 }
+      });
+      G.fromTo($$('[data-pslide]'), { xPercent: 18, opacity: 0 }, {
+        xPercent: 0, opacity: 1, ease: 'none', stagger: 0.25,
+        scrollTrigger: { trigger: '.pside', start: 'top 92%', end: 'top 45%', scrub: 0.8 }
+      });
+    }
   })();
 
   /* ===================== copy helpers ===================== */
