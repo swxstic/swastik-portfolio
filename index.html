@@ -367,6 +367,53 @@ main { overflow-x: clip; }
 .term-hints button { padding: 5px 11px; border-radius: 999px; background: rgba(255, 255, 255, .08); color: var(--night-text); font-family: var(--mono); font-size: .75rem; transition: background-color .3s, color .3s; }
 .term-hints button:hover { background: var(--saffron); color: var(--night); }
 
+
+/* what I bring to the table */
+.title.title-free { white-space: normal; font-size: clamp(2.4rem, 7.4vw, 6.6rem); line-height: .95; text-wrap: balance; max-width: 13ch; }
+.table-surface {
+  position: relative; border-radius: clamp(24px, 3vw, 40px); padding: clamp(16px, 3.2vw, 44px);
+  background: radial-gradient(70% 55% at 50% 0%, rgba(125, 144, 240, .22), rgba(125, 144, 240, 0) 70%), var(--night);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06), 0 60px 120px -60px rgba(12, 18, 48, .7);
+}
+.table-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin-bottom: clamp(16px, 2.4vw, 28px); }
+.suits-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--night-muted); font-size: .875rem; }
+.suits-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.deal-btn { height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .22); color: var(--night-text); font-size: .875rem; transition: background-color .35s, color .35s, border-color .35s; }
+.deal-btn:hover { background: var(--saffron); color: var(--night); border-color: var(--saffron); }
+.table-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 22px); perspective: 1800px; }
+.tcard { position: relative; will-change: transform; }
+.tcard-inner { position: relative; height: 100%; transform-style: preserve-3d; }
+.tcard-front {
+  position: relative; height: 100%; min-height: 236px; display: flex; flex-direction: column; gap: 10px;
+  padding: 20px 22px 44px; border-radius: 20px; background: #fff; color: var(--ink);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  box-shadow: 0 26px 40px -26px rgba(0, 0, 0, .7);
+  transition: transform .6s var(--ease), box-shadow .6s var(--ease);
+}
+.tcard:hover .tcard-front { transform: translateY(-6px); box-shadow: 0 40px 60px -30px rgba(0, 0, 0, .75); }
+.tcard-back {
+  position: absolute; inset: 0; border-radius: 20px; display: grid; place-items: center;
+  transform: rotateY(180deg); backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  background-color: #10183F; border: 1px solid rgba(255, 255, 255, .14);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M5 16 L11 7' stroke='%233F56C9' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.tcard-back span { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--night); border: 1.5px solid rgba(245, 163, 0, .7); color: var(--night-text); font-family: var(--display); font-variation-settings: "wdth" 125, "wght" 780; font-size: 1.25rem; }
+.tcard-top { display: flex; align-items: center; gap: 8px; font-size: .8125rem; color: var(--muted); }
+.suit { width: 26px; height: 26px; border-radius: 8px; display: inline-grid; place-items: center; font-family: var(--mono); font-size: .75rem; font-weight: 500; line-height: 1; flex: none; }
+[data-suit="code"] .suit { background: rgba(35, 64, 224, .12); color: var(--cobalt); }
+[data-suit="people"] .suit { background: rgba(245, 163, 0, .2); color: #8A5600; font-family: Georgia, serif; font-size: 1.2rem; padding-top: 6px; }
+[data-suit="mindset"] .suit { background: rgba(26, 28, 34, .08); color: var(--ink); }
+.suits-legend [data-suit="mindset"] .suit { background: rgba(255, 255, 255, .1); color: var(--night-text); }
+.suits-legend [data-suit="code"] .suit { background: rgba(125, 144, 240, .18); color: #A9B7FF; }
+.suits-legend [data-suit="people"] .suit { background: rgba(245, 163, 0, .2); color: var(--saffron); }
+.tcard h3 { margin-top: 6px; font-family: var(--display); font-size: clamp(1.3rem, 1.7vw, 1.55rem); line-height: 1.1; letter-spacing: -.01em; font-variation-settings: "wdth" 112, "wght" 680; }
+.tcard p { color: var(--muted); font-size: .96875rem; line-height: 1.5; }
+.tcard .proof { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--rule); color: var(--ink); font-size: .875rem; line-height: 1.45; }
+.tcard .proof b { display: block; font-size: .75rem; font-weight: 600; color: var(--cobalt); margin-bottom: 2px; }
+.tcard .corner { position: absolute; right: 16px; bottom: 14px; transform: rotate(180deg); opacity: .55; }
+@media (max-width: 1000px) { .table-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .table-grid { grid-template-columns: 1fr; } .tcard-front { min-height: 0; } }
+
 /* certificates */
 .cert-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 56px); perspective: 1600px; }
 .cert { display: grid; gap: 26px; align-content: start; transform-style: preserve-3d; }
@@ -790,6 +837,131 @@ $ git push origin main</code></pre>
             <button type="button" data-cmd="python hello.py">python hello.py</button>
             <button type="button" data-cmd="certs">certs</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section strengths" id="strengths">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="title title-free">What I bring to the table</h2>
+        <p class="sec-note" data-reveal>What I&rsquo;m good at, in code and with people, and the proof behind it.</p>
+      </div>
+      <div class="table-surface">
+        <div class="table-bar">
+          <ul class="suits-legend" aria-label="Card groups">
+            <li data-suit="code"><span class="suit" aria-hidden="true">{ }</span>Code</li>
+            <li data-suit="people"><span class="suit" aria-hidden="true">&ldquo;</span>People</li>
+            <li data-suit="mindset"><span class="suit" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>Mindset</li>
+          </ul>
+          <button class="deal-btn" type="button" data-deal>Deal again</button>
+        </div>
+        <div class="table-grid">
+            <article class="tcard" data-suit="code">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true">{ }</span><span>Code</span></div>
+                  <h3>Python</h3>
+                  <p>Fundamentals, data structures, and pulling data from the web with HTTP, JSON and APIs.</p>
+                <p class="proof"><b>Proof</b>Three University of Michigan certificates</p>
+                  <span class="suit corner" aria-hidden="true">{ }</span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
+            <article class="tcard" data-suit="code">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true">{ }</span><span>Code</span></div>
+                  <h3>Git, GitHub &amp; the terminal</h3>
+                  <p>Every project gets versioned, pushed to GitHub and run from the command line.</p>
+                <p class="proof"><b>Proof</b>This site deploys straight from GitHub to Vercel</p>
+                  <span class="suit corner" aria-hidden="true">{ }</span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
+            <article class="tcard" data-suit="code">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true">{ }</span><span>Code</span></div>
+                  <h3>Problem solving</h3>
+                  <p>I break a problem into small parts, test the edge cases, and only then call it done.</p>
+                <p class="proof"><b>Proof</b>Consistently top of my class in maths through school</p>
+                  <span class="suit corner" aria-hidden="true">{ }</span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
+            <article class="tcard" data-suit="people">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true">&ldquo;</span><span>People</span></div>
+                  <h3>A good listener</h3>
+                  <p>I ask questions until I understand what someone actually needs, then build that instead of what I assumed.</p>
+                  <span class="suit corner" aria-hidden="true">&ldquo;</span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
+            <article class="tcard" data-suit="people">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true">&ldquo;</span><span>People</span></div>
+                  <h3>A clear speaker</h3>
+                  <p>I can explain a technical idea in plain words, whether it&rsquo;s to a teammate, a judge or someone new to tech.</p>
+                  <span class="suit corner" aria-hidden="true">&ldquo;</span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
+            <article class="tcard" data-suit="people">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true">&ldquo;</span><span>People</span></div>
+                  <h3>Team player</h3>
+                  <p>I like building with other people: splitting the work, sharing what I know and covering the gaps.</p>
+                <p class="proof"><b>Proof</b>GitTrace at Hacktoberfest 2026 Hack Day, and RadiUp.ai at the X AI Tech Ideathon (cleared round one)</p>
+                  <span class="suit corner" aria-hidden="true">&ldquo;</span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
+            <article class="tcard" data-suit="mindset">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span><span>Mindset</span></div>
+                  <h3>Fast learner</h3>
+                  <p>I started programming from zero and keep a steady pace with new tools, languages and ideas.</p>
+                <p class="proof"><b>Proof</b>From zero to three certificates and a live portfolio</p>
+                  <span class="suit corner" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
+            <article class="tcard" data-suit="mindset">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span><span>Mindset</span></div>
+                  <h3>Ownership</h3>
+                  <p>When something breaks, I find out why and fix it. I don&rsquo;t hand off problems half-solved.</p>
+                  <span class="suit corner" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
+            <article class="tcard" data-suit="mindset">
+              <div class="tcard-inner">
+                <div class="tcard-front">
+                  <div class="tcard-top"><span class="suit" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span><span>Mindset</span></div>
+                  <h3>Builder mindset</h3>
+                  <p>I&rsquo;m entrepreneurial at heart and like turning ideas into things real people can use.</p>
+                  <span class="suit corner" aria-hidden="true"><svg viewBox="0 0 20 20" width="12" height="12"><path fill="currentColor" d="M10 0c.6 5.6 4.4 9.4 10 10-5.6.6-9.4 4.4-10 10-.6-5.6-4.4-9.4-10-10C5.6 9.4 9.4 5.6 10 0Z"/></svg></span>
+                </div>
+                <div class="tcard-back" aria-hidden="true"><span>SV</span></div>
+              </div>
+            </article>
         </div>
       </div>
     </div>
@@ -1487,7 +1659,7 @@ $ git push origin main</code></pre>
   const nWords = splitWords(statement, 'sw');
   if (hasG && !reduce) {
     // section titles stretch open as they arrive
-    $$('.title').forEach(t => {
+    $$('.title:not(.title-free)').forEach(t => {
       G.fromTo(t, { '--wdth': 62, '--wght': 260 }, {
         '--wdth': 125, '--wght': 760, ease: 'none',
         scrollTrigger: { trigger: t, start: 'top 98%', end: 'top 50%', scrub: 0.7 }
@@ -1562,6 +1734,7 @@ $ git push origin main</code></pre>
         '  <span class="t-acc">skills</span>           what I work with',
         '  <span class="t-acc">education</span>        where I study',
         '  <span class="t-acc">certs</span>            certificates, with links to verify',
+        '  <span class="t-acc">strengths</span>        what I bring to the table',
         '  <span class="t-acc">git log</span>          my learning history, newest first',
         '  <span class="t-acc">ls</span>, <span class="t-acc">cat about.txt</span>  look around the files',
         '  <span class="t-acc">python hello.py</span>  run a tiny Python program',
@@ -1627,6 +1800,11 @@ $ git push origin main</code></pre>
       music: () => { const on = Music.toggle(); line(on ? 'Playing <span class="t-acc">Afterglow</span>. Type music again to pause.' : 'Music paused.'); },
       pwd: () => line('/home/swastik/portfolio'),
       date: () => line(new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'short', timeZone: 'Asia/Kolkata' }).format(new Date()) + ' IST'),
+      strengths: () => lines([
+        '<span class="t-acc">code</span>     Python, Git &amp; GitHub, the terminal, problem solving',
+        '<span class="t-acc">people</span>   good listener, clear speaker, team player',
+        '<span class="t-acc">mindset</span>  fast learner, ownership, builder mindset'
+      ]),
       linkedin: () => line('LinkedIn: ' + link('https://www.linkedin.com/in/swastik-verma-70226a2b4/', 'linkedin.com/in/swastik-verma-70226a2b4')),
       github: () => line('GitHub: ' + link('https://github.com/swxstic', 'github.com/swxstic')),
       clear: () => { out.innerHTML = ''; },
@@ -1687,6 +1865,51 @@ $ git push origin main</code></pre>
     }, { threshold: 0.4 });
     io.observe($('.term'));
     return { run };
+  })();
+
+
+  /* ===================== what I bring to the table: deal the cards ===================== */
+  (() => {
+    const grid = $('.table-grid'); if (!grid || !hasG || reduce) { const b = $('[data-deal]'); if (b) b.hidden = true; return; }
+    const cards = $$('.tcard', grid), inners = cards.map(c => c.querySelector('.tcard-inner'));
+    let dealt = false, busy = false;
+    const stackOffsets = () => {
+      const gr = grid.getBoundingClientRect();
+      const cx = gr.left + gr.width / 2, cy = gr.top + Math.min(gr.height / 2, 200);
+      return cards.map(c => { const r = c.getBoundingClientRect(); return { x: cx - (r.left + r.width / 2), y: cy - (r.top + r.height / 2) }; });
+    };
+    const narrow = () => innerWidth <= 640;
+    function stack() {
+      G.set(cards, { clearProps: 'transform' });
+      if (narrow()) { G.set(inners, { rotationY: 180 }); return; }
+      const off = stackOffsets();
+      cards.forEach((c, i) => G.set(c, { x: off[i].x, y: off[i].y, rotation: (i % 2 ? 1 : -1) * (2 + (i * 37 % 7)), zIndex: cards.length - i }));
+      G.set(inners, { rotationY: 180 });
+    }
+    function deal() {
+      busy = true; dealt = true;
+      const tl = G.timeline({ onComplete: () => { busy = false; G.set(cards, { zIndex: '' }); } });
+      tl.to(cards, { x: 0, y: 0, rotation: 0, duration: 0.95, ease: 'power3.out', stagger: 0.085 })
+        .to(inners, { rotationY: 0, duration: 0.75, ease: 'power2.inOut', stagger: 0.085 }, 0.3);
+      return tl;
+    }
+    stack();
+    if (narrow()) {
+      cards.forEach((c, i) => ST.create({ trigger: c, start: 'top 85%', once: true, onEnter: () => { dealt = true; G.to(inners[i], { rotationY: 0, duration: 0.8, ease: 'power2.inOut' }); } }));
+    } else {
+      ST.create({ trigger: grid, start: 'top 72%', once: true, onEnter: deal });
+    }
+    $('[data-deal]').addEventListener('click', () => {
+      if (busy) return;
+      if (narrow()) { G.timeline().to(inners, { rotationY: 180, duration: 0.45, stagger: 0.05 }).to(inners, { rotationY: 0, duration: 0.7, stagger: 0.07, ease: 'power2.inOut' }); return; }
+      busy = true;
+      const off = stackOffsets();
+      G.timeline({ onComplete: deal })
+        .to(inners, { rotationY: 180, duration: 0.45, ease: 'power2.in', stagger: 0.03 }, 0)
+        .to(cards, { x: i => off[i].x, y: i => off[i].y, rotation: i => (i % 2 ? 1 : -1) * (2 + Math.random() * 6), zIndex: i => cards.length - i, duration: 0.6, ease: 'power3.inOut', stagger: 0.03 }, 0.1);
+    });
+    let rt = 0, lastW = innerWidth;
+    addEventListener('resize', () => { if (dealt || Math.abs(innerWidth - lastW) < 2) return; clearTimeout(rt); rt = setTimeout(() => { lastW = innerWidth; stack(); }, 200); });
   })();
 
   /* ===================== certificates: tilt + lightbox ===================== */
